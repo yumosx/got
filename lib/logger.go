@@ -6,6 +6,8 @@ type Filed struct {
 }
 
 type Logger interface {
-	Error(key string, value ...Filed)
+	Debug(msg string, args ...any)
+	Info(msg string, args ...any)
 	Warn(key string, value ...Filed)
+	Error(key string, value ...Filed)
 }
