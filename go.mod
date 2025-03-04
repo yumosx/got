@@ -1,4 +1,4 @@
-module got
+module github.com/yumosx/got
 
 go 1.23.2
 
