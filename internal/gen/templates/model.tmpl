@@ -1,7 +1,10 @@
 package {{.package}}
 
 type {{.Model}} struct {
+	Id int64 `gorm:"primaryKey,autoIncrement"`
 	{{- range .Fields}}
 	{{.Name | ToCaml}} {{.Type}}
 	{{- end}}
+	Ctime int64
+	Utime int64
 }

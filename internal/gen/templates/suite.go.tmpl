@@ -1,0 +1,25 @@
+package templates
+
+import (
+	"github.com/stretchr/testify/suite"
+)
+
+type {{.TestName}}Suite struct {
+	suite.Suite
+}
+
+func (s *{{.TestName}}Suite) SetupSuite() {
+
+}
+
+func (s *{{.TestName}}Suite) TearDownTest() {
+
+}
+
+func (s *{{.TestName}}Suite) Test1() {
+    testcases := struct{
+        name string
+    }{
+        {name: ""}
+    }
+}

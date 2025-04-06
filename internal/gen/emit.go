@@ -6,7 +6,7 @@ import (
 	"text/template"
 )
 
-//go:embed model.tmpl
+//go:embed templates/model.tmpl
 var tmpl string
 
 type Field struct {

@@ -1,4 +1,4 @@
-package lib
+package stream
 
 func Map[Src any, Dst any](src []Src, m func(idx int, src Src) Dst) []Dst {
 	dst := make([]Dst, len(src))
