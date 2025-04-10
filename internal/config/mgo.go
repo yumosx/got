@@ -2,40 +2,73 @@ package config
 
 import (
 	"context"
-	"fmt"
 	"go.mongodb.org/mongo-driver/event"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
 )
 
-func InitMgo(url string, dbName string, collection string) *mongo.Database {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+type MgoConfig struct {
+	URL        string
+	DBName     string
+	Collection string
+	// 超时控制
+	ctx context.Context
+	// 设置对应的监听器
+	m *event.CommandMonitor
+}
 
-	// 我们可以初始化一个监控器
-	monitor := &event.CommandMonitor{
-		// 当命令开始执行
-		Started: func(ctx context.Context, startedEvent *event.CommandStartedEvent) {
-			fmt.Println(startedEvent.Command)
-		},
-		// 当命令执行成功
-		Succeeded: func(ctx context.Context, succeededEvent *event.CommandSucceededEvent) {
-			fmt.Println(succeededEvent.CommandName)
-		},
-		Failed: func(ctx context.Context, failedEvent *event.CommandFailedEvent) {
-			fmt.Println(failedEvent.CommandName)
-		},
+type MgoConfigOption interface {
+	Option(mg *MgoConfig)
+}
+
+type MgoConfigOptionFunc func(mg *MgoConfig)
+
+func (fn MgoConfigOptionFunc) Option(mg *MgoConfig) {
+	fn(mg)
+}
+
+func WithMgoURL(url string) MgoConfigOption {
+	return MgoConfigOptionFunc(func(mg *MgoConfig) {
+		mg.URL = url
+	})
+}
+
+func WithMgDBName(name string) MgoConfigOption {
+	return MgoConfigOptionFunc(func(mg *MgoConfig) {
+		mg.DBName = name
+	})
+}
+
+func WithMgCollection(name string) MgoConfigOption {
+	return MgoConfigOptionFunc(func(mg *MgoConfig) {
+		mg.Collection = name
+	})
+}
+
+func WithContext(ctx context.Context) MgoConfigOption {
+	return MgoConfigOptionFunc(func(mg *MgoConfig) {
+		mg.ctx = ctx
+	})
+}
+
+func NewMgoConfig(options ...MgoConfigOption) *MgoConfig {
+	mgo := &MgoConfig{}
+
+	for _, opt := range options {
+		opt.Option(mgo)
 	}
 
+	return mgo
+}
+
+func NewMgo(config *MgoConfig) (*mongo.Database, error) {
 	client, err := mongo.Connect(
-		ctx,
-		options.Client().
-			ApplyURI(url).
-			SetMonitor(monitor))
+		config.ctx,
+		options.Client().ApplyURI(config.URL))
+
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	return client.Database(dbName)
+	return client.Database(config.DBName), nil
 }
