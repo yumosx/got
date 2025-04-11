@@ -1,7 +1,7 @@
 package synx
 
 import (
-	"github.com/yumosx/got/internal/stream"
+	"github.com/yumosx/got/pkg/stream"
 	"go.uber.org/zap"
 )
 
