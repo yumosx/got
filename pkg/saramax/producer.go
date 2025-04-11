@@ -21,6 +21,7 @@ func (producer *KafkaProducer) PushEntry(topic string, entry sarama.Encoder) {
 }
 
 // ErrorHandler 这个函数主要的作用就是用来判断当前的 error 是不是空的
+// 然后交给用户去处理错误逻辑
 func (producer *KafkaProducer) Error(ctx context.Context, errHandle func(err error)) {
 	go func() {
 		for {

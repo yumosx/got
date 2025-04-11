@@ -20,13 +20,13 @@ func NewMongoBuilder[T Filter](collection *mongo.Collection) *Builder[T] {
 	return &Builder[T]{collection: collection}
 }
 
-func (builder *Builder[T]) Filter(filter T) *Builder[T] {
-	builder.filter = filter
+func (builder *Builder[T]) WithContext(ctx context.Context) *Builder[T] {
+	builder.ctx = ctx
 	return builder
 }
 
-func (builder *Builder[T]) WithContext(ctx context.Context) *Builder[T] {
-	builder.ctx = ctx
+func (builder *Builder[T]) Filter(filter T) *Builder[T] {
+	builder.filter = filter
 	return builder
 }
 
@@ -37,10 +37,8 @@ func (builder *Builder[T]) InsertOne(value any) (*mongo.InsertOneResult, error) 
 	return builder.collection.InsertOne(builder.ctx, value)
 }
 
-// FindOne 这里我们只是做一点泛型优化, 表示你的查询接口
-// 实际的使用通常都是: FindOne().Decode(&xxx)
 func (builder *Builder[T]) FindOne() *mongo.SingleResult {
-	return builder.collection.FindOne(builder.ctx, builder.Filter)
+	return builder.collection.FindOne(builder.ctx, builder.filter)
 }
 
 func (builder *Builder[T]) UpdateOne(value bson.E) (*mongo.UpdateResult, error) {

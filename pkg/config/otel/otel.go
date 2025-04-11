@@ -1,4 +1,4 @@
-package config
+package otel
 
 import (
 	"go.opentelemetry.io/otel"
@@ -7,7 +7,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-type OtelConfig struct {
+type Config struct {
 	TracerProvider trace.TracerProvider
 	Tracer         trace.Tracer
 	MeterProvider  metric.MeterProvider
@@ -17,23 +17,23 @@ type OtelConfig struct {
 }
 
 type OtelOption interface {
-	Apply(config *OtelConfig)
+	Apply(config *Config)
 }
 
-type OtelOptionFunc func(config *OtelConfig)
+type OtelOptionFunc func(config *Config)
 
-func (f OtelOptionFunc) Apply(config *OtelConfig) {
+func (f OtelOptionFunc) Apply(config *Config) {
 	f(config)
 }
 
 func WithTracerProvider(tp trace.TracerProvider) OtelOption {
-	return OtelOptionFunc(func(config *OtelConfig) {
+	return OtelOptionFunc(func(config *Config) {
 		config.TracerProvider = tp
 	})
 }
 
 func WithMeterProvider(meter metric.MeterProvider) OtelOption {
-	return OtelOptionFunc(func(config *OtelConfig) {
+	return OtelOptionFunc(func(config *Config) {
 		config.MeterProvider = meter
 	})
 }
@@ -45,8 +45,8 @@ func Version(name string) string {
 	return name
 }
 
-func NewOtelConfig(name string, options ...OtelOption) OtelConfig {
-	config := OtelConfig{
+func NewOtelConfig(name string, options ...OtelOption) Config {
+	config := Config{
 		TracerProvider: otel.GetTracerProvider(),
 		MeterProvider:  otel.GetMeterProvider(),
 	}

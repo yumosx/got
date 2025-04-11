@@ -6,7 +6,7 @@ type Result[T any] struct {
 	Data T      `json:"data"`
 }
 
-func SuccessResponse[T any](data T) *Result[T] {
+func Success[T any](data T) *Result[T] {
 	return &Result[T]{
 		Code: 200,
 		Msg:  "success",
@@ -14,7 +14,7 @@ func SuccessResponse[T any](data T) *Result[T] {
 	}
 }
 
-func ErrorResponse[T any](msg string, data T) *Result[T] {
+func Error[T any](msg string, data T) *Result[T] {
 	return &Result[T]{
 		Code: 500,
 		Msg:  msg,

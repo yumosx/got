@@ -1,4 +1,4 @@
-package config
+package db
 
 import (
 	"fmt"
@@ -6,10 +6,10 @@ import (
 	"gorm.io/gorm"
 )
 
-// DBConfig 数据库信息配置
+// Config 数据库信息配置
 // 1. 通过 function option 模式配置
 // 2. 通过 toml 文件进行配置
-type DBConfig struct {
+type Config struct {
 	UserName string
 	Password string
 	Host     string
@@ -17,48 +17,48 @@ type DBConfig struct {
 	DBName   string
 }
 
-type DBConfigOption interface {
-	Option(config *DBConfig)
+type ConfigOption interface {
+	Option(config *Config)
 }
 
-type DBConfigOptionFunc func(config *DBConfig)
+type ConfigOptionFunc func(config *Config)
 
-func (fn DBConfigOptionFunc) Option(config *DBConfig) {
+func (fn ConfigOptionFunc) Option(config *Config) {
 	fn(config)
 }
 
-func WithUserName(userName string) DBConfigOptionFunc {
-	return DBConfigOptionFunc(func(config *DBConfig) {
+func WithUserName(userName string) ConfigOptionFunc {
+	return ConfigOptionFunc(func(config *Config) {
 		config.UserName = userName
 	})
 }
 
-func WithPassword(password string) DBConfigOptionFunc {
-	return DBConfigOptionFunc(func(config *DBConfig) {
+func WithPassword(password string) ConfigOptionFunc {
+	return ConfigOptionFunc(func(config *Config) {
 		config.Password = password
 	})
 }
 
-func WithHost(host string) DBConfigOptionFunc {
-	return DBConfigOptionFunc(func(config *DBConfig) {
+func WithHost(host string) ConfigOptionFunc {
+	return ConfigOptionFunc(func(config *Config) {
 		config.Host = host
 	})
 }
 
-func WithPort(port string) DBConfigOptionFunc {
-	return DBConfigOptionFunc(func(config *DBConfig) {
+func WithPort(port string) ConfigOptionFunc {
+	return ConfigOptionFunc(func(config *Config) {
 		config.Port = port
 	})
 }
 
-func WithDBName(db string) DBConfigOptionFunc {
-	return DBConfigOptionFunc(func(config *DBConfig) {
+func WithDBName(db string) ConfigOptionFunc {
+	return ConfigOptionFunc(func(config *Config) {
 		config.DBName = db
 	})
 }
 
-func NewConfig(options ...DBConfigOption) *DBConfig {
-	config := &DBConfig{}
+func NewConfig(options ...ConfigOption) *Config {
+	config := &Config{}
 	for _, opt := range options {
 		opt.Option(config)
 	}
@@ -67,7 +67,7 @@ func NewConfig(options ...DBConfigOption) *DBConfig {
 }
 
 // NewDB 根据参数建立对应的数据库连接
-func NewDB(config *DBConfig) (*gorm.DB, error) {
+func NewDB(config *Config) (*gorm.DB, error) {
 	conn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		config.UserName,

@@ -1,4 +1,4 @@
-package config
+package mq
 
 type Topic struct {
 	Name              string
