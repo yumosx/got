@@ -16,24 +16,24 @@ type Config struct {
 	Version        string
 }
 
-type OtelOption interface {
+type Option interface {
 	Apply(config *Config)
 }
 
-type OtelOptionFunc func(config *Config)
+type OptionFunc func(config *Config)
 
-func (f OtelOptionFunc) Apply(config *Config) {
+func (f OptionFunc) Apply(config *Config) {
 	f(config)
 }
 
-func WithTracerProvider(tp trace.TracerProvider) OtelOption {
-	return OtelOptionFunc(func(config *Config) {
+func WithTracerProvider(tp trace.TracerProvider) Option {
+	return OptionFunc(func(config *Config) {
 		config.TracerProvider = tp
 	})
 }
 
-func WithMeterProvider(meter metric.MeterProvider) OtelOption {
-	return OtelOptionFunc(func(config *Config) {
+func WithMeterProvider(meter metric.MeterProvider) Option {
+	return OptionFunc(func(config *Config) {
 		config.MeterProvider = meter
 	})
 }
@@ -45,7 +45,7 @@ func Version(name string) string {
 	return name
 }
 
-func NewOtelConfig(name string, options ...OtelOption) Config {
+func NewConfig(name string, options ...Option) Config {
 	config := Config{
 		TracerProvider: otel.GetTracerProvider(),
 		MeterProvider:  otel.GetMeterProvider(),
