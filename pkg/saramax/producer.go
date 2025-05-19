@@ -2,6 +2,7 @@ package saramax
 
 import (
 	"context"
+
 	"github.com/IBM/sarama"
 )
 

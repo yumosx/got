@@ -1,4 +1,4 @@
-package suitex
+package mockhttp
 
 import (
 	"bytes"

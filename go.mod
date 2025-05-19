@@ -3,7 +3,9 @@ module github.com/yumosx/got
 go 1.23.2
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/IBM/sarama v1.45.1
+	github.com/mjarkk/mongomock v0.0.0-20230619160045-6439478855a8
 	github.com/redis/go-redis/v9 v9.3.0
 	github.com/stretchr/testify v1.10.0
 	go.mongodb.org/mongo-driver v1.17.3

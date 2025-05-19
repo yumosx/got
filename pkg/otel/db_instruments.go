@@ -2,8 +2,9 @@ package otel
 
 import (
 	"fmt"
-	"go.opentelemetry.io/otel/metric"
 	"strings"
+
+	"go.opentelemetry.io/otel/metric"
 )
 
 type dbStatsInstruments struct {
