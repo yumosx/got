@@ -5,9 +5,9 @@ import (
 )
 
 type MongoMockAdapter struct {
-	db *mongomock.TestConnection
+	DB *mongomock.TestConnection
 }
 
 func NewMongoMockAdapter() *MongoMockAdapter {
-	return &MongoMockAdapter{db: mongomock.NewDB()}
+	return &MongoMockAdapter{DB: mongomock.NewDB()}
 }

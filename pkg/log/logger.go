@@ -1,4 +1,4 @@
-package synx
+package log
 
 import (
 	"github.com/yumosx/got/pkg/stream"
@@ -6,8 +6,8 @@ import (
 )
 
 type Record struct {
-	key   string
-	value any
+	Key   string
+	Value any
 }
 
 type Logger interface {
@@ -21,13 +21,13 @@ type ZapLogger struct {
 	log *zap.Logger
 }
 
-func NewZapLogger(cfg zap.Config) *zap.Logger {
+func NewZapLogger(cfg zap.Config) (*ZapLogger, error) {
 	logger, err := cfg.Build()
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	return logger
+	return &ZapLogger{log: logger}, nil
 }
 
 func (z *ZapLogger) Debug(msg string, args ...Record) {
@@ -48,7 +48,7 @@ func (z *ZapLogger) Error(key string, args ...Record) {
 
 func (z *ZapLogger) toArgs(args []Record) []zap.Field {
 	ans := stream.Map[Record, zap.Field](args, func(idx int, src Record) zap.Field {
-		return zap.Any(args[idx].key, args[idx].value)
+		return zap.Any(args[idx].Key, args[idx].Value)
 	})
 	return ans
 }

@@ -28,3 +28,32 @@ func TestStructMap(t *testing.T) {
 	assert.Equal(t, personDao.Phone, person.Phone)
 	assert.Empty(t, personDao.test)
 }
+
+func TestIntersectSet(t *testing.T) {
+	src := []byte{'a', 'b', 'c', 'd'}
+	dst := []byte{'a', 'd', 'e', 'g'}
+
+	set := IntersectSet(src, dst)
+	assert.NotEmpty(t, set)
+	assert.Equal(t, []byte{'a', 'd'}, set)
+}
+
+func TestDiffSet(t *testing.T) {
+	src := []byte{'a', 'b', 'c', 'd'}
+	dst := []byte{'a', 'd', 'e', 'g'}
+
+	set := DiffSet(src, dst)
+	assert.NotEmpty(t, set)
+	assert.Equal(t, []byte{'b', 'c'}, set)
+}
+
+func TestFilter(t *testing.T) {
+	src := []byte{'a', 'b', 'c', 'd'}
+
+	arr := Filter(src, func(value byte) bool {
+		return value == 'a'
+	})
+
+	assert.NotEmpty(t, arr)
+	assert.Equal(t, []byte{'a'}, arr)
+}
