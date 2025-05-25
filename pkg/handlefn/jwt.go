@@ -1,4 +1,4 @@
-package auth
+package handlefn
 
 import (
 	"net/http"
