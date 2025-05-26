@@ -8,8 +8,8 @@ import (
 )
 
 type SQLMockAdapter struct {
-	db   *gorm.DB
-	mock sqlmock.Sqlmock
+	DB   *gorm.DB
+	Mock sqlmock.Sqlmock
 }
 
 func NewSQLAdapter() (*SQLMockAdapter, error) {
@@ -28,7 +28,7 @@ func NewSQLAdapter() (*SQLMockAdapter, error) {
 
 	}
 	return &SQLMockAdapter{
-		db:   gdb,
-		mock: mock,
+		DB:   gdb,
+		Mock: mock,
 	}, nil
 }

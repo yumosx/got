@@ -10,6 +10,6 @@ func TestNewSQLAdapter(t *testing.T) {
 	adapter, err := NewSQLAdapter()
 	assert.NoError(t, err)
 	assert.NotNil(t, adapter)
-	assert.NotNil(t, adapter.db)
-	assert.NotNil(t, adapter.mock)
+	assert.NotNil(t, adapter.DB)
+	assert.NotNil(t, adapter.Mock)
 }
