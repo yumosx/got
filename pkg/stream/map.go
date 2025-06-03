@@ -61,6 +61,13 @@ func Filter[T any](array []T, fn func(value T) bool) []T {
 	return newArray
 }
 
+// Each 就是一个for 循环
+func Each[T any](array []T, fn func(index int, value T)) {
+	for index, value := range array {
+		fn(index, value)
+	}
+}
+
 // StructMap 这个函数主要是为了解决ddd 分层的时候我们通常需要把dao 层中的对象值转换成为domain 层的对象
 func StructMap[Src any, Dst any](src *Src, dst *Dst) error {
 	srcVal := reflect.ValueOf(src)

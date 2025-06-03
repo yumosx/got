@@ -26,5 +26,6 @@ func InError() Result[string] {
 	return Result[string]{
 		Code: 500,
 		Msg:  "internal error",
+		Data: "error",
 	}
 }

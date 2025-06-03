@@ -32,3 +32,7 @@ func NewSQLAdapter() (*SQLMockAdapter, error) {
 		Mock: mock,
 	}, nil
 }
+
+func (adapter *SQLMockAdapter) AddRows() {
+
+}
