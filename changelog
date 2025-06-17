@@ -1,0 +1,8 @@
+# changelog
+
+## v.1.2.5
+
+1. [stream] 修改 StructMap 为 MapObject, 用来处理结构体字段的映射
+2. [cache] 添加 redis 相关的操作接口
+3. [mq] 重构消息队列相关的配置接口
+4. [errx] 添加 recover 接口

@@ -23,8 +23,8 @@ func (b *Bcrypt) HashSecret(args string) errx.Option[string] {
 	return errx.Ok(string(hPassword))
 }
 
-func (b *Bcrypt) Authenticate(secret, hashValue string) errx.Option[bool] {
-	err := bcrypt.CompareHashAndPassword([]byte(secret), []byte(hashValue))
+func (b *Bcrypt) Authenticate(hashedPassword, plaintextPassword string) errx.Option[bool] {
+	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(plaintextPassword))
 	if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
 		return errx.Ok(false)
 	}

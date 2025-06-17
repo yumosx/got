@@ -1,6 +1,8 @@
 package mocksql
 
 import (
+	"strings"
+
 	"github.com/DATA-DOG/go-sqlmock"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -8,8 +10,9 @@ import (
 )
 
 type SQLMockAdapter struct {
-	DB   *gorm.DB
-	Mock sqlmock.Sqlmock
+	DB      *gorm.DB
+	Mock    sqlmock.Sqlmock
+	builder strings.Builder
 }
 
 func NewSQLAdapter() (*SQLMockAdapter, error) {
@@ -31,8 +34,4 @@ func NewSQLAdapter() (*SQLMockAdapter, error) {
 		DB:   gdb,
 		Mock: mock,
 	}, nil
-}
-
-func (adapter *SQLMockAdapter) AddRows() {
-
 }

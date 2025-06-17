@@ -1,6 +1,8 @@
 package log
 
 import (
+	"fmt"
+
 	"github.com/yumosx/got/pkg/stream"
 	"go.uber.org/zap"
 )
@@ -44,6 +46,10 @@ func (z *ZapLogger) Warn(key string, args ...Record) {
 
 func (z *ZapLogger) Error(key string, args ...Record) {
 	z.log.Error(key, z.toArgs(args)...)
+}
+
+func (z *ZapLogger) Errorf(key string, value error, args ...Record) {
+	z.log.Error(fmt.Sprintf("%s %s", key, value.Error()), z.toArgs(args)...)
 }
 
 func (z *ZapLogger) toArgs(args []Record) []zap.Field {

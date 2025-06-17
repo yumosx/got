@@ -14,7 +14,7 @@ func FormatDate(t time.Time) string {
 
 // ParseDate 解析日期字符串为时间对象
 func ParseDate(dateStr string) (time.Time, error) {
-	return time.Parse(StandardDateFormat, dateStr) // 修正了参数顺序错误
+	return time.Parse(StandardDateFormat, dateStr)
 }
 
 // FormatDateTime 将时间格式化为标准日期时间字符串

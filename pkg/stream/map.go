@@ -19,6 +19,11 @@ func ToMap[T comparable](src []T) map[T]struct{} {
 	return dataMap
 }
 
+// ToList 将一个单个 value 转换成为[]T
+func ToList[T any](value T) []T {
+	return []T{value}
+}
+
 // DiffSet 用于计算两个集合的之间的差集
 func DiffSet[T comparable](src, dst []T) []T {
 	srcMap := ToMap[T](src)
@@ -68,34 +73,29 @@ func Each[T any](array []T, fn func(index int, value T)) {
 	}
 }
 
-// StructMap 这个函数主要是为了解决ddd 分层的时候我们通常需要把dao 层中的对象值转换成为domain 层的对象
-func StructMap[Src any, Dst any](src *Src, dst *Dst) error {
-	srcVal := reflect.ValueOf(src)
-	dstVal := reflect.ValueOf(dst)
+// MapObject 用来做对象的映射
+func MapObject[Src any, Dst any](srcPtr *Src) Dst {
+	dst := new(Dst)
+
+	srcVal := reflect.ValueOf(srcPtr)
+	dstVal := reflect.ValueOf(dst).Elem()
 
 	if srcVal.Kind() == reflect.Ptr {
 		srcVal = srcVal.Elem()
 	}
 
-	if dstVal.Kind() == reflect.Ptr {
-		dstVal = dstVal.Elem()
-	}
-
 	srcType := srcVal.Type()
 	dstType := dstVal.Type()
 
-	// 遍历所有的源filed
-	l := srcVal.NumField()
-	for i := 0; i < l; i++ {
-		//根据索引获取field
+	for i := 0; i < srcVal.NumField(); i++ {
 		srcField := srcType.Field(i)
-		// 首先在目标 field 中找到对应的元素
-		if dstFiled, ok := dstType.FieldByName(srcField.Name); ok {
-			if srcField.Type == dstFiled.Type {
-				dstVal.FieldByName(srcField.Name).Set(srcVal.Field(i))
+		srcFieldValue := srcVal.Field(i)
+
+		if dstField, ok := dstType.FieldByName(srcField.Name); ok {
+			if srcField.Type == dstField.Type {
+				dstVal.FieldByName(srcField.Name).Set(srcFieldValue)
 			}
 		}
 	}
-
-	return nil
+	return dstVal.Interface().(Dst)
 }
