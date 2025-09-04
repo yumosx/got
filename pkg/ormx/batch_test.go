@@ -7,7 +7,6 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"github.com/yumosx/got/pkg/config/db"
-	"github.com/yumosx/got/pkg/errx"
 	"gorm.io/gorm"
 )
 
@@ -54,10 +53,10 @@ func (b *BatchExportSuite) TestBatchExport() {
 	for _, tc := range testcases {
 		t.Run(tc.name, func(t *testing.T) {
 			batchConfig := NewBatchConfig(2, b.db, WithBatch(1000), WithMaxRecords(1000))
-			list := BatchExport[Model](batchConfig, func(offset, currentLimit int, db *gorm.DB) errx.Option[[]Model] {
-				return errx.Err[[]Model](errors.New(""))
+			_, err := BatchExport[Model](batchConfig, func(offset, currentLimit int, db *gorm.DB) ([]Model, error) {
+				return nil, errors.New("")
 			})
-			require.NoError(t, list.Error())
+			require.NoError(t, err)
 		})
 	}
 }

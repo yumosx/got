@@ -7,7 +7,6 @@ import (
 
 	"github.com/redis/go-redis/v9"
 	"github.com/yumosx/got/internal/errs"
-	"github.com/yumosx/got/pkg/errx"
 )
 
 type Cache struct {
@@ -24,56 +23,56 @@ func (c *Cache) Set(ctx context.Context, key string, value any, expire time.Dura
 }
 
 // SetNX 设置一个键值对
-func (c *Cache) SetNX(ctx context.Context, key string, value any, expire time.Duration) errx.Option[bool] {
+func (c *Cache) SetNX(ctx context.Context, key string, value any, expire time.Duration) (bool, error) {
 	result, err := c.client.SetNX(ctx, key, value, expire).Result()
 	if err != nil {
-		return errx.Err[bool](err)
+		return false, err
 	}
-	return errx.Ok(result)
+	return result, nil
 }
 
-func (c *Cache) Get(ctx context.Context, key string) errx.Option[string] {
+func (c *Cache) Get(ctx context.Context, key string) (string, error) {
 	result, err := c.client.Get(ctx, key).Result()
 	if err != nil && errors.Is(err, redis.Nil) {
-		return errx.Err[string](errs.ErrKeyNotExists)
+		return "", errs.ErrKeyNotExists
 	}
-	return errx.Ok(result)
+	return result, err
 }
 
-func (c *Cache) Delete(ctx context.Context, key string) errx.Option[int64] {
+func (c *Cache) Delete(ctx context.Context, key string) (int64, error) {
 	result, err := c.client.Del(ctx, key).Result()
 	if err != nil {
-		return errx.Err[int64](err)
+		return 0, err
 	}
-	return errx.Ok(result)
+	return result, nil
 }
 
 // LPush 将所指定的值插入存储列表的头部
-func (c *Cache) LPush(ctx context.Context, key string, val ...any) errx.Option[int64] {
+func (c *Cache) LPush(ctx context.Context, key string, val ...any) (int64, error) {
 	res, err := c.client.LPush(ctx, key, val...).Result()
 	if err != nil {
-		return errx.Err[int64](err)
+		return 0, err
 	}
-	return errx.Ok(res)
+	return res, nil
 }
 
 // LPop 从列表中删除对应的元素
-func (c *Cache) LPop(ctx context.Context, key string) errx.Option[string] {
+func (c *Cache) LPop(ctx context.Context, key string) (string, error) {
 	val, err := c.client.LPop(ctx, key).Result()
 	if err != nil {
 		if errors.Is(err, redis.Nil) {
-			return errx.Err[string](errs.ErrKeyNotExists)
+			return "", errs.ErrKeyNotExists
 		}
-		return errx.Err[string](err)
+		return "", err
 	}
-	return errx.Ok(val)
+	return val, nil
 }
 
 // LLen 用来计算当前列表的长度
-func (c *Cache) LLen(ctx context.Context, key string) errx.Option[int64] {
+func (c *Cache) LLen(ctx context.Context, key string) (int64, error) {
 	result, err := c.client.LLen(ctx, key).Result()
 	if err != nil {
-		return errx.Err[int64](err)
+		return 0, err
 	}
-	return errx.Ok(result)
+	return result, nil
 }

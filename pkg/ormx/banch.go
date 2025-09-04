@@ -1,7 +1,6 @@
 package ormx
 
 import (
-	"github.com/yumosx/got/pkg/errx"
 	"gorm.io/gorm"
 )
 
@@ -48,7 +47,7 @@ func WithMaxRecords(maxRecords int) BatchConfigOption {
 }
 
 // BatchExport 分批次导出对应的数据
-func BatchExport[Result any](config BatchConfig, query func(offset, currentLimit int, db *gorm.DB) errx.Option[[]Result]) errx.Option[[]Result] {
+func BatchExport[Result any](config BatchConfig, query func(offset, currentLimit int, db *gorm.DB) ([]Result, error)) ([]Result, error) {
 	total := min(config.total, config.maxRecords)
 
 	list := make([]Result, 0, total)
@@ -57,12 +56,12 @@ func BatchExport[Result any](config BatchConfig, query func(offset, currentLimit
 		if offset+config.batchSize > total {
 			currentLimit = total - offset
 		}
-		result := query(offset, currentLimit, config.db)
-		if result.NoNil() {
-			return errx.Err[[]Result](result.Error())
+		result, err := query(offset, currentLimit, config.db)
+		if err != nil {
+			return nil, err
 		}
-		list = append(list, result.Val...)
+		list = append(list, result...)
 	}
 
-	return errx.Ok(list)
+	return list, nil
 }

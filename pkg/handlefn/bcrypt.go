@@ -3,7 +3,6 @@ package handlefn
 import (
 	"errors"
 
-	"github.com/yumosx/got/pkg/errx"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -15,21 +14,21 @@ func NewBcrypt(config int) *Bcrypt {
 	return &Bcrypt{config: config}
 }
 
-func (b *Bcrypt) HashSecret(args string) errx.Option[string] {
+func (b *Bcrypt) HashSecret(args string) (string, error) {
 	hPassword, err := bcrypt.GenerateFromPassword([]byte(args), bcrypt.DefaultCost)
 	if err != nil {
-		return errx.Err[string](err)
+		return "", err
 	}
-	return errx.Ok(string(hPassword))
+	return string(hPassword), nil
 }
 
-func (b *Bcrypt) Authenticate(hashedPassword, plaintextPassword string) errx.Option[bool] {
+func (b *Bcrypt) Authenticate(hashedPassword, plaintextPassword string) (bool, error) {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(plaintextPassword))
 	if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
-		return errx.Ok(false)
+		return false, nil
 	}
 	if err != nil {
-		return errx.Err[bool](err)
+		return false, err
 	}
-	return errx.Ok(true)
+	return true, nil
 }
