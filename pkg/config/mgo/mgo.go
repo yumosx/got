@@ -66,7 +66,6 @@ func NewMgo(config *Config) (*mongo.Database, error) {
 	client, err := mongo.Connect(
 		config.ctx,
 		options.Client().ApplyURI(config.URL))
-
 	if err != nil {
 		return nil, err
 	}

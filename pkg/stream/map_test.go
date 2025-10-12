@@ -67,9 +67,11 @@ func TestObjectMap(t *testing.T) {
 		Utime  string
 	}
 	t.Run("Basic types", func(t *testing.T) {
-		person := Person{Name: "person", Phone: "12345678", Age: 12,
+		person := Person{
+			Name: "person", Phone: "12345678", Age: 12,
 			School: School{Name: "xxx", Rank: 1},
-			Ids:    []string{"1", "2"}}
+			Ids:    []string{"1", "2"},
+		}
 		to := MapObject[Person, PersonDao](&person)
 		assert.Equal(t, to.Phone, person.Phone)
 		assert.Equal(t, to.Name, person.Name)

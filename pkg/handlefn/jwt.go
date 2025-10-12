@@ -31,7 +31,7 @@ func (j *JwtMiddlewareBuilder) Build(renew func(ctx *gin.Context, claims jwt.Cla
 			}
 		}
 
-		//1. 获取对应的token
+		// 1. 获取对应的token
 		tokenHeader := c.GetHeader("Authorization")
 		if tokenHeader == "" {
 			c.AbortWithStatus(http.StatusUnauthorized)
@@ -45,7 +45,7 @@ func (j *JwtMiddlewareBuilder) Build(renew func(ctx *gin.Context, claims jwt.Cla
 		}
 		tokenStr := sets[1]
 
-		//2. 解析对应的token
+		// 2. 解析对应的token
 		token, err := jwt.ParseWithClaims(tokenStr, j.claims, func(token *jwt.Token) (interface{}, error) {
 			return []byte("secret"), nil
 		})
@@ -55,7 +55,7 @@ func (j *JwtMiddlewareBuilder) Build(renew func(ctx *gin.Context, claims jwt.Cla
 			return
 		}
 
-		//3. 刷新的逻辑交个客户端
+		// 3. 刷新的逻辑交个客户端
 		err = renew(c, j.claims)
 		if err != nil {
 			c.AbortWithStatus(http.StatusUnauthorized)

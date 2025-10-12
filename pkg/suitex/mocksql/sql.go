@@ -28,7 +28,6 @@ func NewSQLAdapter() (*SQLMockAdapter, error) {
 		Logger: logger.Default.LogMode(logger.Silent),
 	})
 	if err != nil {
-
 	}
 	return &SQLMockAdapter{
 		DB:   gdb,

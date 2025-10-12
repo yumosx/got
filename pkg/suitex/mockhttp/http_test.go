@@ -28,7 +28,7 @@ func TestNewClientConfig(t *testing.T) {
 func TestPost(t *testing.T) {
 	handler := http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		writer.WriteHeader(http.StatusOK)
-		writer.Write([]byte(`{"status":"ok"}`))
+		_, _ = writer.Write([]byte(`{"status":"ok"}`))
 	})
 
 	config := NewClientConfig(

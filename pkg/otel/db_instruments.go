@@ -27,7 +27,7 @@ func newInstruments(meter metric.Meter) (*instruments, error) {
 		metric.WithDescription("the latency of calls in milliseconds"),
 		metric.WithUnit("ms"),
 	); err != nil {
-		return nil, fmt.Errorf("failed to create latency instrument, %v", err)
+		return nil, fmt.Errorf("failed to create latency instrument, %w", err)
 	}
 
 	return &instruments, nil
