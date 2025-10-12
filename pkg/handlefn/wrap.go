@@ -11,7 +11,7 @@ import (
 func S[Resp any](fn func(ctx *gin.Context) (code.Result[Resp], error)) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		res, err := fn(ctx)
-		if err != nil { //用户产生的问题, 我们希望用户对返回值做处理
+		if err != nil { // 用户产生的问题, 我们希望用户对返回值做处理
 			ctx.PureJSON(http.StatusInternalServerError, res)
 			return
 		}
