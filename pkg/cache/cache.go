@@ -22,7 +22,7 @@ func (c *Cache) Set(ctx context.Context, key string, value any, expire time.Dura
 	return c.client.Set(ctx, key, value, expire).Err()
 }
 
-// SetNX 设置一个键值对
+// SetNX 设置一个键值对, 只有当键不存在时才会设置成功
 func (c *Cache) SetNX(ctx context.Context, key string, value any, expire time.Duration) (bool, error) {
 	result, err := c.client.SetNX(ctx, key, value, expire).Result()
 	if err != nil {
@@ -31,6 +31,7 @@ func (c *Cache) SetNX(ctx context.Context, key string, value any, expire time.Du
 	return result, nil
 }
 
+// Get 获取一个键对应的值, 如果键不存在, 则返回错误
 func (c *Cache) Get(ctx context.Context, key string) (string, error) {
 	result, err := c.client.Get(ctx, key).Result()
 	if err != nil && errors.Is(err, redis.Nil) {

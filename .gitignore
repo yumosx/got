@@ -1,1 +1,4 @@
 .idea/
+
+# Test configuration files
+pkg/cache/test_config.yaml

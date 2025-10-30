@@ -1,0 +1,2 @@
+docker exec kafka kafka-topics --create --if-not-exists --topic test-topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+Created topic test-topic.

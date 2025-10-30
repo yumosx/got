@@ -1,8 +1,8 @@
 package otel
 
 import (
+	"errors"
 	"fmt"
-	"strings"
 
 	"go.opentelemetry.io/otel/metric"
 )
@@ -13,43 +13,26 @@ type dbStatsInstruments struct {
 	connectionWaitTotal metric.Int64ObservableCounter
 }
 
-type instruments struct {
-	latency metric.Float64Histogram
-}
-
-const namespace = ""
-
-func newInstruments(meter metric.Meter) (*instruments, error) {
-	var instruments instruments
-	var err error
-	if instruments.latency, err = meter.Float64Histogram(
-		strings.Join([]string{namespace, "latency"}, "."),
-		metric.WithDescription("the latency of calls in milliseconds"),
-		metric.WithUnit("ms"),
-	); err != nil {
-		return nil, fmt.Errorf("failed to create latency instrument, %w", err)
-	}
-
-	return &instruments, nil
-}
-
-func newDBStatsInstruments(meter metric.Meter) (*dbStatsInstruments, error) {
+func NewDBStatsInstruments(meter metric.Meter) (*dbStatsInstruments, error) {
 	var instruments dbStatsInstruments
-	var err error
+	var err, e error
 
 	subsystem := "connection"
 
-	if instruments.connectionOpen, err = meter.Int64ObservableGauge(subsystem); err != nil {
-		return nil, fmt.Errorf("failed to create instruments connectionOpen")
+	if instruments.connectionOpen, e = meter.Int64ObservableGauge(subsystem); e != nil {
+		e = fmt.Errorf("failed to create instruments connectionOpen, %w", e)
+		err = errors.Join(err, e)
 	}
 
-	if instruments.connectionMaxOpen, err = meter.Int64ObservableGauge(subsystem); err != nil {
-		return nil, fmt.Errorf("failed to create instruments connectionMaxOpne")
+	if instruments.connectionMaxOpen, e = meter.Int64ObservableGauge(subsystem); e != nil {
+		e = fmt.Errorf("failed to create instruments connectionMaxOpne, %w", e)
+		err = errors.Join(err, e)
 	}
 
-	if instruments.connectionWaitTotal, err = meter.Int64ObservableCounter(subsystem); err != nil {
-		return nil, fmt.Errorf("failed to create instruments connection")
+	if instruments.connectionWaitTotal, e = meter.Int64ObservableCounter(subsystem); e != nil {
+		e = fmt.Errorf("failed to create instruments connectionWaitTotal, %w", e)
+		err = errors.Join(err, e)
 	}
 
-	return &instruments, nil
+	return &instruments, err
 }

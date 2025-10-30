@@ -7,9 +7,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// Config 数据库信息配置
-// 1. 通过 function option 模式配置
-// 2. 通过 toml 文件进行配置
 type Config struct {
 	UserName string
 	Password string
