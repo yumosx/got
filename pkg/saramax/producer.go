@@ -14,10 +14,15 @@ func NewProducer(producer sarama.AsyncProducer) *KafkaProducer {
 	return &KafkaProducer{Producer: producer}
 }
 
-func (producer *KafkaProducer) PushEntry(topic string, entry sarama.Encoder) {
-	producer.Producer.Input() <- &sarama.ProducerMessage{
-		Topic: topic,
-		Value: entry,
+func (producer *KafkaProducer) PushEntry(ctx context.Context, topic string, entry sarama.Encoder) {
+	select {
+	case <-ctx.Done():
+		return
+	default:
+		producer.Producer.Input() <- &sarama.ProducerMessage{
+			Topic: topic,
+			Value: entry,
+		}
 	}
 }
 

@@ -7,14 +7,14 @@ import (
 	"go.opentelemetry.io/otel/metric"
 )
 
-type dbStatsInstruments struct {
+type DBStatsInstruments struct {
 	connectionMaxOpen   metric.Int64ObservableGauge
 	connectionOpen      metric.Int64ObservableGauge
 	connectionWaitTotal metric.Int64ObservableCounter
 }
 
-func NewDBStatsInstruments(meter metric.Meter) (*dbStatsInstruments, error) {
-	var instruments dbStatsInstruments
+func NewDBStatsInstruments(meter metric.Meter) (*DBStatsInstruments, error) {
+	var instruments DBStatsInstruments
 	var err, e error
 
 	subsystem := "connection"
