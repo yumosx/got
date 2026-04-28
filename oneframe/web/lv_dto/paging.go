@@ -20,7 +20,7 @@ type Paging struct {
 	StartNum  int //起始行
 }
 
-// 创建分页
+// GetStartNum 创建分页
 func (p *Paging) GetStartNum() int {
 	if p.PageNum < 1 {
 		p.PageNum = 1
@@ -32,7 +32,7 @@ func (p *Paging) GetStartNum() int {
 	return p.StartNum
 }
 
-// 创建分页
+// GetPageSize 创建分页
 func (p *Paging) GetPageSize() int {
 	if p.PageSize < 1 {
 		p.PageSize = PageSize
@@ -40,7 +40,7 @@ func (p *Paging) GetPageSize() int {
 	return p.PageSize
 }
 
-// 创建分页
+// CreatePaging 创建分页
 func CreatePaging(pageNum, pagesize int, total int64) *Paging {
 	if pageNum < 1 {
 		pageNum = 1

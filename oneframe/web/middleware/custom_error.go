@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"common/util"
 	"net/http"
 	"strings"
 
@@ -22,23 +21,25 @@ func RecoverError(c *gin.Context) {
 					c.String(http.StatusOK, errTypeObj)
 					c.Abort()
 				} else {
-					util.Err(c, errTypeObj)
+					c.JSON(http.StatusOK, gin.H{"code": 500, "msg": errTypeObj})
+					c.Abort()
 				}
-			case lv_dto.Resp: //封装过的
+			case lv_dto.Resp:
 				c.AbortWithStatusJSON(http.StatusOK, errTypeObj)
-				util.ErrResp(c, errTypeObj)
-			case error: // 原始的错误
+			case error:
 				if gin.IsDebugging() {
 					lv_err.PrintStackTrace(errTypeObj)
 				}
-				lv_log.Error(c, "CustomError XXXXXXXXXX: ", errTypeObj)
-				util.Error(c, errTypeObj)
+				lv_log.Error(c, "CustomError: ", errTypeObj)
+				c.JSON(http.StatusOK, gin.H{"code": 500, "msg": errTypeObj.Error()})
+				c.Abort()
 			default:
-				lv_log.Error(c, "default CustomErrorXXXXXXXXXX: ", errTypeObj)
-				util.Err(c, "未知错误!")
+				lv_log.Error(c, "CustomError: ", errTypeObj)
+				c.JSON(http.StatusOK, gin.H{"code": 500, "msg": "未知错误!"})
+				c.Abort()
 			}
 		} else {
-			lv_log.Info(c, "-----------request over----------")
+			lv_log.Info(c, "request over")
 		}
 	}()
 	c.Next()

@@ -1,77 +1,67 @@
 package lv_dto
 
-type BunissType int
+type BusinessType int
 
-// 业务类型
 const (
-	Buniss_Other BunissType = 0 //0其它
-	Buniss_Add   BunissType = 1 //1新增
-	Buniss_Edit  BunissType = 2 //2修改
-	Buniss_Del   BunissType = 3 //3删除
+	Business_Other BusinessType = 0
+	Business_Add   BusinessType = 1
+	Business_Edit  BusinessType = 2
+	Business_Del   BusinessType = 3
 )
 
-// 响应结果
 const (
-	SUCCESS      = 200 // 成功
-	ERROR        = 500 //错误
-	UNAUTHORIZED = 403 //无权限
-	FAIL         = -1  //失败
+	Success      = 200
+	Error        = 500
+	Unauthorized = 403
+	Fail         = -1
 )
 
-// 错误处理页面
 const (
-	ERROR_PAGE  = "error/error.html"  //错误提示页面
-	UNAUTH_PAGE = "error/unauth.html" //无权限提示页面
+	ErrorPage  = "error/error.html"
+	UnauthPage = "error/unauth.html"
 )
 
-// 通用api响应
-type CommonRes struct {
-	Code  int        `json:"code"`  //响应编码 0 成功 500 错误 403 无权限  -1  失败
-	Msg   string     `json:"msg"`   //消息
-	Data  any        `json:"data"`  //数据内容
-	Btype BunissType `json:"otype"` //业务类型
+type CommonResponse struct {
+	Code         int          `json:"code"`
+	Msg          string       `json:"msg"`
+	Data         any          `json:"data"`
+	BusinessType BusinessType `json:"otype"`
 }
 
-// 验证码响应
-type CaptchaRes struct {
-	Code           int    `json:"code"` //响应编码 0 成功 500 错误 403 无权限
-	Msg            string `json:"msg"`  //消息
-	Img            any    `json:"img"`  //数据内容
-	Uuid           string `json:"uuid"` //验证码ID
+type CaptchaResponse struct {
+	Code           int    `json:"code"`
+	Msg            string `json:"msg"`
+	Image          any    `json:"img"`
+	UUID           string `json:"uuid"`
 	CaptchaEnabled bool   `json:"captchaEnabled"`
 }
 
-// 通用分页表格响应
-type TableDataInfo struct {
-	Total any    `json:"total"` //总数
-	Rows  any    `json:"rows"`  //数据
-	Code  int    `json:"code"`  //响应编码 200 成功 500 错误 403 无权限
-	Msg   string `json:"msg"`   //消息
+type TableResponse struct {
+	Total any    `json:"total"`
+	Rows  any    `json:"rows"`
+	Code  int    `json:"code"`
+	Msg   string `json:"msg"`
 }
 
-// 通用的树形结构
-type Ztree struct {
-	Id       int64  `json:"id"`       //节点ID
-	Pid      int64  `json:"pId"`      //节点父ID
-	Name     string `json:"name"`     //节点名称
-	Title    string `json:"title"`    //节点标题
-	Checked  bool   `json:"checked"`  //是否勾选
-	Open     bool   `json:"open"`     //是否展开
-	Nocheck  bool   `json:"nocheck"`  //是否能勾选
-	NodeType string `json:"nodeType"` //节点类型
+type ZTree struct {
+	Id       int64  `json:"id"`
+	Pid      int64  `json:"pId"`
+	Name     string `json:"name"`
+	Title    string `json:"title"`
+	Checked  bool   `json:"checked"`
+	Open     bool   `json:"open"`
+	NoCheck  bool   `json:"nocheck"`
+	NodeType string `json:"nodeType"`
 }
 
-// 通用的删除请求
-type IdsReq struct {
+type DeleteReq struct {
 	Ids string `form:"ids"  binding:"required"`
 }
 
-// 通用详情请求
 type DetailReq struct {
-	Id int64 `json:"id"` //主键ID
+	Id int64 `json:"id"`
 }
 
-// 通用修改请求
 type EditReq struct {
-	Id int64 `json:"id"` //主键ID
+	Id int64 `json:"id"`
 }
