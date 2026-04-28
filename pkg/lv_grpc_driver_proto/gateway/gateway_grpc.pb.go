@@ -87,7 +87,7 @@ func RegisterRpcGatewayServer(s grpc.ServiceRegistrar, srv RpcGatewayServer) {
 	s.RegisterService(&RpcGateway_ServiceDesc, srv)
 }
 
-func _RpcGateway_GetGatewayInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcGateway_GetGatewayInfo_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -99,7 +99,7 @@ func _RpcGateway_GetGatewayInfo_Handler(srv interface{}, ctx context.Context, de
 		Server:     srv,
 		FullMethod: RpcGateway_GetGatewayInfo_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcGatewayServer).GetGatewayInfo(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)

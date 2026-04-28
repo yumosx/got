@@ -17,14 +17,14 @@ import (
 
 // Encrypt encrypts any type of variable using MD5 algorithms.
 // It uses lv_conv package to convert <v> to its bytes type.
-func Encrypt(data interface{}) (encrypt string, err error) {
+func Encrypt(data any) (encrypt string, err error) {
 	return EncryptBytes(lv_conv.ToBytes(data))
 }
 
 // MustEncrypt encrypts any type of variable using MD5 algorithms.
 // It uses lv_conv package to convert <v> to its bytes type.
 // It panics if any error occurs.
-func MustEncrypt(data interface{}) string {
+func MustEncrypt(data any) string {
 	result, err := Encrypt(data)
 	if err != nil {
 		panic(err)

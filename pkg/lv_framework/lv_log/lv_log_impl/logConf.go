@@ -94,57 +94,57 @@ func InitLog(fileName string) *LvLogImpl {
 func (e *LvLogImpl) GetLogWriter() io.Writer {
 	return e.Log.Out
 }
-func (e *LvLogImpl) Error(args ...interface{}) {
+func (e *LvLogImpl) Error(args ...any) {
 	e.Log.Error(args)
 }
 
-func (e *LvLogImpl) ErrorTraceId(traceId any, args ...interface{}) {
+func (e *LvLogImpl) ErrorTraceId(traceId any, args ...any) {
 	e.Log.WithFields(logrus.Fields{
 		"traceId": traceId,
 	}).Error(args)
 }
-func (e *LvLogImpl) Fatal(args ...interface{}) {
+func (e *LvLogImpl) Fatal(args ...any) {
 	e.Log.Fatal(args)
 }
-func (e *LvLogImpl) FatalTraceId(traceId any, args ...interface{}) {
+func (e *LvLogImpl) FatalTraceId(traceId any, args ...any) {
 	e.Log.WithFields(logrus.Fields{
 		"traceId": traceId,
 	}).Fatal(args)
 }
-func (e *LvLogImpl) Warn(args ...interface{}) {
+func (e *LvLogImpl) Warn(args ...any) {
 	e.Log.Warn(args)
 }
-func (e *LvLogImpl) WarnTraceId(traceId any, args ...interface{}) {
+func (e *LvLogImpl) WarnTraceId(traceId any, args ...any) {
 	e.Log.WithFields(logrus.Fields{
 		"traceId": traceId,
 	}).Warn(args)
 }
-func (e *LvLogImpl) Info(args ...interface{}) {
+func (e *LvLogImpl) Info(args ...any) {
 	e.Log.Info(args)
 }
-func (e *LvLogImpl) InfoTraceId(traceId any, args ...interface{}) {
+func (e *LvLogImpl) InfoTraceId(traceId any, args ...any) {
 	e.Log.WithFields(logrus.Fields{
 		"traceId": traceId,
 	}).Info(args)
 }
-func (e *LvLogImpl) Debug(args ...interface{}) {
+func (e *LvLogImpl) Debug(args ...any) {
 	e.Log.Debug(args...)
 }
-func (e *LvLogImpl) DebugTraceId(traceId any, args ...interface{}) {
+func (e *LvLogImpl) DebugTraceId(traceId any, args ...any) {
 	e.Log.WithFields(logrus.Fields{
 		"traceId": traceId,
 	}).Debug(args)
 }
-func (e *LvLogImpl) Errorf(format string, args ...interface{}) {
+func (e *LvLogImpl) Errorf(format string, args ...any) {
 	e.Log.Errorf(format, args...)
 }
-func (e *LvLogImpl) Warnf(format string, args ...interface{}) {
+func (e *LvLogImpl) Warnf(format string, args ...any) {
 	e.Log.Warnf(format, args...)
 }
-func (e *LvLogImpl) Infof(format string, args ...interface{}) {
+func (e *LvLogImpl) Infof(format string, args ...any) {
 	e.Log.Infof(format, args...)
 }
 
-func (e *LvLogImpl) Debugf(format string, args ...interface{}) {
+func (e *LvLogImpl) Debugf(format string, args ...any) {
 	e.Log.Debugf(format, args...)
 }

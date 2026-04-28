@@ -36,8 +36,8 @@ func (d SysUserDao) SelectPageList(param *common_vo.SelectUserPageReq) (*[]map[s
 	return result, total, err
 }
 
-func (d SysUserDao) GetSql(param *common_vo.SelectUserPageReq) (map[string]interface{}, string) {
-	sqlParams := make(map[string]interface{})
+func (d SysUserDao) GetSql(param *common_vo.SelectUserPageReq) (map[string]any, string) {
+	sqlParams := make(map[string]any)
 	sql := `
             select u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.avatar, u.phonenumber, u.password,u.sex, u.salt, u.status, u.del_flag, 
             u.login_ip, u.login_date, u.create_by, u.create_time, u.remark,d.dept_name, d.leader
@@ -95,7 +95,7 @@ func (d SysUserDao) SelectExportList(param *common_vo.SelectUserPageReq) (*[]map
 // 根据条件分页查询已分配用户角色列表
 func (d SysUserDao) SelectAllocatedList(roleId int64, loginName, phonenumber string) (*[]map[string]string, error) {
 	db := lv_db.GetMasterGorm()
-	sqlParams := make(map[string]interface{})
+	sqlParams := make(map[string]any)
 	sql := `
             select distinct u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.avatar, u.phonenumber,u.status, u.create_time
             from sys_user u 
@@ -121,7 +121,7 @@ func (d SysUserDao) SelectAllocatedList(roleId int64, loginName, phonenumber str
 // 根据条件分页查询未分配用户角色列表
 func (d SysUserDao) SelectUnallocatedList(roleId int64, loginName, phonenumber string) (*[]map[string]string, error) {
 	db := lv_db.GetMasterGorm()
-	sqlParams := make(map[string]interface{})
+	sqlParams := make(map[string]any)
 	sql := `
             select distinct u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.avatar, u.phonenumber,u.status, u.create_time
             from sys_user u 

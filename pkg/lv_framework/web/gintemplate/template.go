@@ -44,7 +44,7 @@ type TemplateEngine struct {
 type TemplateRender struct {
 	Engine *TemplateEngine
 	Name   string
-	Data   interface{}
+	Data   any
 }
 
 type TemplateConfig struct {
@@ -89,7 +89,7 @@ func Default() *TemplateEngine {
 
 // You should use helper func `Middleware()` to set the supplied
 // TemplateEngine and make `HTML()` work validly.
-func HTML(ctx *gin.Context, code int, name string, data interface{}) {
+func HTML(ctx *gin.Context, code int, name string, data any) {
 	if val, ok := ctx.Get(templateEngineKey); ok {
 		if e, ok := val.(*TemplateEngine); ok {
 			e.HTML(ctx, code, name, data)
@@ -110,7 +110,7 @@ func Middleware(e *TemplateEngine) gin.HandlerFunc {
 	}
 }
 
-func (e *TemplateEngine) Instance(name string, data interface{}) render.Render {
+func (e *TemplateEngine) Instance(name string, data any) render.Render {
 	return TemplateRender{
 		Engine: e,
 		Name:   name,
@@ -118,12 +118,12 @@ func (e *TemplateEngine) Instance(name string, data interface{}) render.Render {
 	}
 }
 
-func (e *TemplateEngine) HTML(ctx *gin.Context, code int, name string, data interface{}) {
+func (e *TemplateEngine) HTML(ctx *gin.Context, code int, name string, data any) {
 	instance := e.Instance(name, data)
 	ctx.Render(code, instance)
 }
 
-func (e *TemplateEngine) executeRender(out io.Writer, name string, data interface{}) error {
+func (e *TemplateEngine) executeRender(out io.Writer, name string, data any) error {
 	useMaster := true
 	if filepath.Ext(name) == e.config.Extension {
 		useMaster = false
@@ -133,7 +133,7 @@ func (e *TemplateEngine) executeRender(out io.Writer, name string, data interfac
 	return e.executeTemplate(out, name, data, useMaster)
 }
 
-func (e *TemplateEngine) executeTemplate(out io.Writer, name string, data interface{}, useMaster bool) error {
+func (e *TemplateEngine) executeTemplate(out io.Writer, name string, data any, useMaster bool) error {
 
 	var err error
 	allFuncs := make(template.FuncMap, 0)

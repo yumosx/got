@@ -126,7 +126,7 @@ func RegisterProductCallBackServiceServer(s grpc.ServiceRegistrar, srv ProductCa
 	s.RegisterService(&ProductCallBackService_ServiceDesc, srv)
 }
 
-func _ProductCallBackService_CreateProductCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ProductCallBackService_CreateProductCallback_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(CreateProductCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -138,13 +138,13 @@ func _ProductCallBackService_CreateProductCallback_Handler(srv interface{}, ctx 
 		Server:     srv,
 		FullMethod: ProductCallBackService_CreateProductCallback_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(ProductCallBackServiceServer).CreateProductCallback(ctx, req.(*CreateProductCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProductCallBackService_UpdateProductCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ProductCallBackService_UpdateProductCallback_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(UpdateProductCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -156,13 +156,13 @@ func _ProductCallBackService_UpdateProductCallback_Handler(srv interface{}, ctx 
 		Server:     srv,
 		FullMethod: ProductCallBackService_UpdateProductCallback_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(ProductCallBackServiceServer).UpdateProductCallback(ctx, req.(*UpdateProductCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProductCallBackService_DeleteProductCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ProductCallBackService_DeleteProductCallback_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(DeleteProductCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -174,7 +174,7 @@ func _ProductCallBackService_DeleteProductCallback_Handler(srv interface{}, ctx 
 		Server:     srv,
 		FullMethod: ProductCallBackService_DeleteProductCallback_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(ProductCallBackServiceServer).DeleteProductCallback(ctx, req.(*DeleteProductCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)

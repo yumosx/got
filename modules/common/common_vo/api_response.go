@@ -25,7 +25,7 @@ func (resp *ApiResp) SetCode(code int) *ApiResp {
 }
 
 // 设置消息体的数据
-func (resp *ApiResp) SetData(data interface{}) *ApiResp {
+func (resp *ApiResp) SetData(data any) *ApiResp {
 	resp.r.Data = data
 	return resp
 }

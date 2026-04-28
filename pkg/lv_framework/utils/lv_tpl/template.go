@@ -9,7 +9,7 @@ import (
 )
 
 // 读取模板
-func ParseTemplate(templateName string, data interface{}) (string, error) {
+func ParseTemplate(templateName string, data any) (string, error) {
 	cur, err := os.Getwd()
 	if err != nil {
 		return "", err
@@ -33,7 +33,7 @@ func ParseTemplate(templateName string, data interface{}) (string, error) {
 }
 
 // 读取模板
-func ParseTemplateStr(templateStr string, data interface{}) (string, error) {
+func ParseTemplateStr(templateStr string, data any) (string, error) {
 	templateName := lv_secret.Md5(templateStr)
 	tmpl, err := template.New(templateName).Parse(templateStr) //建立一个模板，内容是"hello, {{OssUrl}}"
 	if err != nil {

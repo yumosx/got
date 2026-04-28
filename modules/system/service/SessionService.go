@@ -60,7 +60,7 @@ func (svc *SessionService) ForceLogout(token string) error {
 
 func (svc *SessionService) SaveUserToSession(token string, user *model.SysUser, roleKeys string) error {
 	//记录到redis
-	fieldMap := make(map[string]interface{})
+	fieldMap := make(map[string]any)
 	fieldMap["userName"] = user.UserName
 	fieldMap["userId"] = user.UserId
 	fieldMap["loginName"] = user.LoginName

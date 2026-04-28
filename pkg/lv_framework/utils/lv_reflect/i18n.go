@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-func TranslateField(dstPtr interface{}, keyField string, local string) (err error) {
+func TranslateField(dstPtr any, keyField string, local string) (err error) {
 	defer func() {
 		if e := recover(); e != nil {
 			lv_log.Error(e)
@@ -19,7 +19,7 @@ func TranslateField(dstPtr interface{}, keyField string, local string) (err erro
 	return
 }
 
-func TranslateByTag(dstPtr interface{}) (err error) {
+func TranslateByTag(dstPtr any) (err error) {
 	// 防止意外panic
 	defer func() {
 		if e := recover(); e != nil {

@@ -125,7 +125,7 @@ func RegisterDeviceCallBackServiceServer(s grpc.ServiceRegistrar, srv DeviceCall
 	s.RegisterService(&DeviceCallBackService_ServiceDesc, srv)
 }
 
-func _DeviceCallBackService_CreateDeviceCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DeviceCallBackService_CreateDeviceCallback_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(CreateDeviceCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -137,13 +137,13 @@ func _DeviceCallBackService_CreateDeviceCallback_Handler(srv interface{}, ctx co
 		Server:     srv,
 		FullMethod: DeviceCallBackService_CreateDeviceCallback_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(DeviceCallBackServiceServer).CreateDeviceCallback(ctx, req.(*CreateDeviceCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceCallBackService_UpdateDeviceCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DeviceCallBackService_UpdateDeviceCallback_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(UpdateDeviceCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -155,13 +155,13 @@ func _DeviceCallBackService_UpdateDeviceCallback_Handler(srv interface{}, ctx co
 		Server:     srv,
 		FullMethod: DeviceCallBackService_UpdateDeviceCallback_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(DeviceCallBackServiceServer).UpdateDeviceCallback(ctx, req.(*UpdateDeviceCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceCallBackService_DeleteDeviceCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DeviceCallBackService_DeleteDeviceCallback_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(DeleteDeviceCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -173,7 +173,7 @@ func _DeviceCallBackService_DeleteDeviceCallback_Handler(srv interface{}, ctx co
 		Server:     srv,
 		FullMethod: DeviceCallBackService_DeleteDeviceCallback_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(DeviceCallBackServiceServer).DeleteDeviceCallback(ctx, req.(*DeleteDeviceCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)

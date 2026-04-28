@@ -91,7 +91,7 @@ func RegisterThingModelDownServiceServer(s grpc.ServiceRegistrar, srv ThingModel
 	s.RegisterService(&ThingModelDownService_ServiceDesc, srv)
 }
 
-func _ThingModelDownService_ThingModelMsgIssue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ThingModelDownService_ThingModelMsgIssue_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(ThingModelIssueMsg)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -103,7 +103,7 @@ func _ThingModelDownService_ThingModelMsgIssue_Handler(srv interface{}, ctx cont
 		Server:     srv,
 		FullMethod: ThingModelDownService_ThingModelMsgIssue_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(ThingModelDownServiceServer).ThingModelMsgIssue(ctx, req.(*ThingModelIssueMsg))
 	}
 	return interceptor(ctx, in, info, handler)
@@ -197,7 +197,7 @@ func RegisterThingModelUpServiceServer(s grpc.ServiceRegistrar, srv ThingModelUp
 	s.RegisterService(&ThingModelUpService_ServiceDesc, srv)
 }
 
-func _ThingModelUpService_ThingModelMsgReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ThingModelUpService_ThingModelMsgReport_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(ThingModelIssueMsg)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -209,7 +209,7 @@ func _ThingModelUpService_ThingModelMsgReport_Handler(srv interface{}, ctx conte
 		Server:     srv,
 		FullMethod: ThingModelUpService_ThingModelMsgReport_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(ThingModelUpServiceServer).ThingModelMsgReport(ctx, req.(*ThingModelIssueMsg))
 	}
 	return interceptor(ctx, in, info, handler)

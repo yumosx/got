@@ -90,7 +90,7 @@ func RegisterCloudInstanceCallBackServiceServer(s grpc.ServiceRegistrar, srv Clo
 	s.RegisterService(&CloudInstanceCallBackService_ServiceDesc, srv)
 }
 
-func _CloudInstanceCallBackService_CloudInstanceStatueCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CloudInstanceCallBackService_CloudInstanceStatueCallback_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(CloudInstanceStatueCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -102,7 +102,7 @@ func _CloudInstanceCallBackService_CloudInstanceStatueCallback_Handler(srv inter
 		Server:     srv,
 		FullMethod: CloudInstanceCallBackService_CloudInstanceStatueCallback_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(CloudInstanceCallBackServiceServer).CloudInstanceStatueCallback(ctx, req.(*CloudInstanceStatueCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)

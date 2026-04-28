@@ -129,7 +129,7 @@ func RegisterRpcCustomMqttMessageServer(s grpc.ServiceRegistrar, srv RpcCustomMq
 	s.RegisterService(&RpcCustomMqttMessage_ServiceDesc, srv)
 }
 
-func _RpcCustomMqttMessage_PlatformCustomPublish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcCustomMqttMessage_PlatformCustomPublish_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(PlatformCustomPublishRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -141,13 +141,13 @@ func _RpcCustomMqttMessage_PlatformCustomPublish_Handler(srv interface{}, ctx co
 		Server:     srv,
 		FullMethod: RpcCustomMqttMessage_PlatformCustomPublish_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcCustomMqttMessageServer).PlatformCustomPublish(ctx, req.(*PlatformCustomPublishRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcCustomMqttMessage_PlatformCustomSubscribe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcCustomMqttMessage_PlatformCustomSubscribe_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(PlatformCustomSubscribeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -159,13 +159,13 @@ func _RpcCustomMqttMessage_PlatformCustomSubscribe_Handler(srv interface{}, ctx 
 		Server:     srv,
 		FullMethod: RpcCustomMqttMessage_PlatformCustomSubscribe_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcCustomMqttMessageServer).PlatformCustomSubscribe(ctx, req.(*PlatformCustomSubscribeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcCustomMqttMessage_PlatformCustomUnSubscribe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcCustomMqttMessage_PlatformCustomUnSubscribe_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(PlatformCustomUnSubscribeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -177,7 +177,7 @@ func _RpcCustomMqttMessage_PlatformCustomUnSubscribe_Handler(srv interface{}, ct
 		Server:     srv,
 		FullMethod: RpcCustomMqttMessage_PlatformCustomUnSubscribe_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcCustomMqttMessageServer).PlatformCustomUnSubscribe(ctx, req.(*PlatformCustomUnSubscribeRequest))
 	}
 	return interceptor(ctx, in, info, handler)

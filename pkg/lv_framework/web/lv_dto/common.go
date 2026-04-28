@@ -26,27 +26,27 @@ const (
 
 // 通用api响应
 type CommonRes struct {
-	Code  int         `json:"code"`  //响应编码 0 成功 500 错误 403 无权限  -1  失败
-	Msg   string      `json:"msg"`   //消息
-	Data  interface{} `json:"data"`  //数据内容
-	Btype BunissType  `json:"otype"` //业务类型
+	Code  int        `json:"code"`  //响应编码 0 成功 500 错误 403 无权限  -1  失败
+	Msg   string     `json:"msg"`   //消息
+	Data  any        `json:"data"`  //数据内容
+	Btype BunissType `json:"otype"` //业务类型
 }
 
 // 验证码响应
 type CaptchaRes struct {
-	Code           int         `json:"code"` //响应编码 0 成功 500 错误 403 无权限
-	Msg            string      `json:"msg"`  //消息
-	Img            interface{} `json:"img"`  //数据内容
-	Uuid           string      `json:"uuid"` //验证码ID
-	CaptchaEnabled bool        `json:"captchaEnabled"`
+	Code           int    `json:"code"` //响应编码 0 成功 500 错误 403 无权限
+	Msg            string `json:"msg"`  //消息
+	Img            any    `json:"img"`  //数据内容
+	Uuid           string `json:"uuid"` //验证码ID
+	CaptchaEnabled bool   `json:"captchaEnabled"`
 }
 
 // 通用分页表格响应
 type TableDataInfo struct {
-	Total any         `json:"total"` //总数
-	Rows  interface{} `json:"rows"`  //数据
-	Code  int         `json:"code"`  //响应编码 200 成功 500 错误 403 无权限
-	Msg   string      `json:"msg"`   //消息
+	Total any    `json:"total"` //总数
+	Rows  any    `json:"rows"`  //数据
+	Code  int    `json:"code"`  //响应编码 200 成功 500 错误 403 无权限
+	Msg   string `json:"msg"`   //消息
 }
 
 // 通用的树形结构

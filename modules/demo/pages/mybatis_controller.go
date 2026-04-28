@@ -68,7 +68,7 @@ func (w DemoController) TestRedis(c *gin.Context) {
 	data := map[string]any{"test": "123"}
 	redis.HSet("mapKey1", data)
 
-	fieldMap := make(map[string]interface{})
+	fieldMap := make(map[string]any)
 	fieldMap["field1"] = "val1"
 	fieldMap["field2"] = "val2"
 	redis.HSet("key", fieldMap)

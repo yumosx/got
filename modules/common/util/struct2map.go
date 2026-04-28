@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-func StructToMap(input interface{}, result map[string]interface{}) error {
+func StructToMap(input any, result map[string]any) error {
 	// 检查输入是否为指针或结构体类型
 	value := reflect.ValueOf(input)
 	if value.Kind() == reflect.Ptr {

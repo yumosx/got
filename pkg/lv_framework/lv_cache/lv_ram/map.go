@@ -60,7 +60,7 @@ func (rcc *RamCacheClient) Exists(key string) (int64, error) {
 	}
 }
 
-func (rcc *RamCacheClient) Set(key string, value interface{}, expiration time.Duration) error {
+func (rcc *RamCacheClient) Set(key string, value any, expiration time.Duration) error {
 	val, err := marshalValue(value)
 	if err != nil {
 		return err
@@ -100,7 +100,7 @@ func (rcc *RamCacheClient) getHashCache(key string) (*gocache.Cache, bool, error
 	return value, true, nil
 }
 
-func (rcc *RamCacheClient) HSet(key string, values ...interface{}) error {
+func (rcc *RamCacheClient) HSet(key string, values ...any) error {
 	hashCache, exist, err := rcc.getHashCache(key)
 	if err != nil {
 		return err
@@ -148,7 +148,7 @@ func (rcc *RamCacheClient) HGet(key, field string) (string, error) {
 	if !exist {
 		return "", Nil
 	}
-	var value interface{}
+	var value any
 	value, exist = hashCache.Get(fmt.Sprintf("%v:%v", key, field))
 	if !exist {
 		return "", Nil
@@ -190,7 +190,7 @@ func (rcc *RamCacheClient) Close() {
 }
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
-func marshalValue(value interface{}) (string, error) {
+func marshalValue(value any) (string, error) {
 	if value == nil {
 		return "", ValueNull
 	}

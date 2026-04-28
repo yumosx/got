@@ -58,7 +58,7 @@ func GetJWTToken(username string, phone string) (signedToken string) {
 }
 
 func VerifyAction(strToken string) (*JWTClaims, error) {
-	token, err := jwt.ParseWithClaims(strToken, &JWTClaims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(strToken, &JWTClaims{}, func(token *jwt.Token) (any, error) {
 		return []byte(Secret), nil
 	})
 	if err != nil {

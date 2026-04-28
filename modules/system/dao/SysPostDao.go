@@ -32,8 +32,8 @@ func (d SysPostDao) SelectPageList(param *vo.SelectPostPageReq) (*[]map[string]s
 	return result, total, err
 }
 
-func (d SysPostDao) GetSql(param *vo.SelectPostPageReq) (map[string]interface{}, string) {
-	sqlParams := make(map[string]interface{})
+func (d SysPostDao) GetSql(param *vo.SelectPostPageReq) (map[string]any, string) {
+	sqlParams := make(map[string]any)
 	sql := `
             select * from sys_post u where u.del_flag =0 
            `

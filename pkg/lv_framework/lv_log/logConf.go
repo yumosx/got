@@ -6,20 +6,20 @@ import (
 )
 
 type ILog interface {
-	Error(args ...interface{})
-	ErrorTraceId(traceId any, args ...interface{})
-	Fatal(args ...interface{})
-	FatalTraceId(traceId any, args ...interface{})
-	Warn(args ...interface{})
-	WarnTraceId(traceId any, args ...interface{})
-	Info(args ...interface{})
-	InfoTraceId(traceId any, args ...interface{})
-	Debug(args ...interface{})
-	DebugTraceId(traceId any, args ...interface{})
-	Errorf(format string, args ...interface{})
-	Warnf(format string, args ...interface{})
-	Infof(format string, args ...interface{})
-	Debugf(format string, args ...interface{})
+	Error(args ...any)
+	ErrorTraceId(traceId any, args ...any)
+	Fatal(args ...any)
+	FatalTraceId(traceId any, args ...any)
+	Warn(args ...any)
+	WarnTraceId(traceId any, args ...any)
+	Info(args ...any)
+	InfoTraceId(traceId any, args ...any)
+	Debug(args ...any)
+	DebugTraceId(traceId any, args ...any)
+	Errorf(format string, args ...any)
+	Warnf(format string, args ...any)
+	Infof(format string, args ...any)
+	Debugf(format string, args ...any)
 	GetLogWriter() io.Writer
 }
 
@@ -32,7 +32,7 @@ func GetLog() ILog {
 	return Log
 }
 
-func Error(args ...interface{}) {
+func Error(args ...any) {
 	if Log != nil {
 		Log.Error(args)
 	} else {
@@ -40,80 +40,80 @@ func Error(args ...interface{}) {
 	}
 }
 
-func ErrorTraceId(traceId any, args ...interface{}) {
+func ErrorTraceId(traceId any, args ...any) {
 	if Log != nil {
 		Log.Error(args)
 	} else {
 		fmt.Println(args)
 	}
 }
-func Fatal(args ...interface{}) {
+func Fatal(args ...any) {
 	Log.Fatal(args)
 }
-func FatalTraceId(traceId any, args ...interface{}) {
+func FatalTraceId(traceId any, args ...any) {
 	if Log != nil {
 		Log.Fatal(args)
 	} else {
 		fmt.Println(args)
 	}
 }
-func Warn(args ...interface{}) {
+func Warn(args ...any) {
 	if Log != nil {
 		Log.Warn(args)
 	} else {
 		fmt.Println(args)
 	}
 }
-func WarnTraceId(traceId any, args ...interface{}) {
+func WarnTraceId(traceId any, args ...any) {
 	if Log != nil {
 		Log.Warn(args)
 	} else {
 		fmt.Println(args)
 	}
 }
-func Info(args ...interface{}) {
+func Info(args ...any) {
 	if Log != nil {
 		Log.Info(args)
 	} else {
 		fmt.Println(args)
 	}
 }
-func InfoTraceId(traceId any, args ...interface{}) {
+func InfoTraceId(traceId any, args ...any) {
 	if Log != nil {
 		Log.Info(args)
 	} else {
 		fmt.Println(args)
 	}
 }
-func Debug(args ...interface{}) {
+func Debug(args ...any) {
 	if Log != nil {
 		Log.Debug(args)
 	} else {
 		fmt.Println(args)
 	}
 }
-func DebugTraceId(traceId any, args ...interface{}) {
+func DebugTraceId(traceId any, args ...any) {
 	if Log != nil {
 		Log.Debug(args)
 	} else {
 		fmt.Println(args)
 	}
 }
-func Errorf(format string, args ...interface{}) {
+func Errorf(format string, args ...any) {
 	if Log != nil {
 		Log.Errorf(format, args)
 	} else {
 		fmt.Printf("\n"+format, args)
 	}
 }
-func Warnf(format string, args ...interface{}) {
+func Warnf(format string, args ...any) {
 	if Log != nil {
 		Log.Warnf(format, args)
 	} else {
 		fmt.Printf("\n"+format, args)
 	}
 }
-func Infof(format string, args ...interface{}) {
+func Infof(format string, args ...any) {
 	if Log != nil {
 		Log.Infof(format, args)
 	} else {
@@ -121,7 +121,7 @@ func Infof(format string, args ...interface{}) {
 	}
 }
 
-func Debugf(format string, args ...interface{}) {
+func Debugf(format string, args ...any) {
 	if Log != nil {
 		Log.Debugf(format, args)
 	} else {

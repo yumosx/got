@@ -28,12 +28,12 @@ import (
 
 // Execer is an interface used by Exec.
 type Execer interface {
-	Exec(query string, args ...interface{}) *gorm.DB
+	Exec(query string, args ...any) *gorm.DB
 }
 
 // ExecerContext is an interface used by ExecContext.
 type ExecerContext interface {
-	ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error)
+	ExecContext(ctx context.Context, query string, args ...any) (sql.Result, error)
 }
 
 type LvBatis struct {
@@ -62,7 +62,7 @@ func NewInstance(relativePath string) *LvBatis {
 	return dot
 }
 
-func (e *LvBatis) GetSql(tagName string, params interface{}) (string, error) {
+func (e *LvBatis) GetSql(tagName string, params any) (string, error) {
 	query, err := e.LookupQuery(tagName)
 	if err != nil || query == "" {
 		panic("tpl文件格式错误!")
@@ -84,12 +84,12 @@ func (e *LvBatis) GetSql(tagName string, params interface{}) (string, error) {
 /**
  * 从mapper目录解析sql文件
  */
-func (e *LvBatis) GetLimitSqlParams(tagName string, params interface{}) (string, map[string]any, error) {
+func (e *LvBatis) GetLimitSqlParams(tagName string, params any) (string, map[string]any, error) {
 	var pageNum, pageSize any
 	paramType := reflect.TypeOf(params).Kind()
 	sqlParams := e.Vars[tagName]
 	if paramType == reflect.Map {
-		paramMap := params.(map[string]interface{})
+		paramMap := params.(map[string]any)
 		pageNum = paramMap["pageNum"]
 		pageSize = paramMap["pageSize"]
 		for key, value := range paramMap { //合并参数
@@ -109,12 +109,12 @@ func (e *LvBatis) GetLimitSqlParams(tagName string, params interface{}) (string,
 	return sql, sqlParams, err
 }
 
-func (e *LvBatis) GetLimitSql(tagName string, params interface{}) (string, error) {
+func (e *LvBatis) GetLimitSql(tagName string, params any) (string, error) {
 	var pageNum, pageSize any
 	paramType := reflect.TypeOf(params).Kind()
 	sqlParams := e.Vars[tagName]
 	if paramType == reflect.Map {
-		paramMap := params.(map[string]interface{})
+		paramMap := params.(map[string]any)
 		pageNum = paramMap["pageNum"]
 		pageSize = paramMap["pageSize"]
 		for key, value := range paramMap { //合并参数
@@ -152,7 +152,7 @@ func (d LvBatis) LookupQuery(name string) (query string, err error) {
 }
 
 // Exec is a wrapper for database/sql's Exec(), using dotsql named query.
-func (d LvBatis) Exec(db Execer, name string, args ...interface{}) (*gorm.DB, error) {
+func (d LvBatis) Exec(db Execer, name string, args ...any) (*gorm.DB, error) {
 	query, err := d.LookupQuery(name)
 	if err != nil {
 		return nil, err
@@ -161,7 +161,7 @@ func (d LvBatis) Exec(db Execer, name string, args ...interface{}) (*gorm.DB, er
 }
 
 // ExecContext is a wrapper for database/sql's ExecContext(), using dotsql named query.
-func (d LvBatis) ExecContext(ctx context.Context, db ExecerContext, name string, args ...interface{}) (sql.Result, error) {
+func (d LvBatis) ExecContext(ctx context.Context, db ExecerContext, name string, args ...any) (sql.Result, error) {
 	query, err := d.LookupQuery(name)
 	if err != nil {
 		return nil, err

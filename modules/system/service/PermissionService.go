@@ -11,7 +11,7 @@ import (
 type PermissionService struct{}
 
 // PermButton 根据用户id和权限字符串判断是否输出控制按钮
-func (svc *PermissionService) PermButton(u interface{}, permission, funcName, text, aclassName, iclassName string) template.HTML {
+func (svc *PermissionService) PermButton(u any, permission, funcName, text, aclassName, iclassName string) template.HTML {
 	result := svc.HasPermi(u, permission)
 
 	htmlstr := ""
@@ -25,7 +25,7 @@ func (svc *PermissionService) PermButton(u interface{}, permission, funcName, te
 }
 
 // HasPerm 根据用户id和权限字符串判断是否有此权限
-func (svc *PermissionService) HasPermi(u interface{}, permission string) string {
+func (svc *PermissionService) HasPermi(u any, permission string) string {
 	if u == nil {
 		return "disabled"
 	}

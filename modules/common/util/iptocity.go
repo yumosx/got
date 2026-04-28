@@ -30,7 +30,7 @@ func GetCityByIp(ip string) string {
 		body, _ := ioutil.ReadAll(response.Body)
 		bodystr := string(body)
 		tmp := lv_conv.ConvertToString(bodystr, "gbk", "utf-8")
-		p := make(map[string]interface{}, 0)
+		p := make(map[string]any, 0)
 		if err := json.Unmarshal([]byte(tmp), &p); err == nil {
 			return p["city"].(string)
 		}

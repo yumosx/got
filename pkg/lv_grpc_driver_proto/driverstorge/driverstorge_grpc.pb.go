@@ -143,7 +143,7 @@ func RegisterDriverStorageServer(s grpc.ServiceRegistrar, srv DriverStorageServe
 	s.RegisterService(&DriverStorage_ServiceDesc, srv)
 }
 
-func _DriverStorage_All_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DriverStorage_All_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(AllReq)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -155,13 +155,13 @@ func _DriverStorage_All_Handler(srv interface{}, ctx context.Context, dec func(i
 		Server:     srv,
 		FullMethod: DriverStorage_All_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(DriverStorageServer).All(ctx, req.(*AllReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DriverStorage_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DriverStorage_Get_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(GetReq)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -173,13 +173,13 @@ func _DriverStorage_Get_Handler(srv interface{}, ctx context.Context, dec func(i
 		Server:     srv,
 		FullMethod: DriverStorage_Get_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(DriverStorageServer).Get(ctx, req.(*GetReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DriverStorage_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DriverStorage_Put_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(PutReq)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -191,13 +191,13 @@ func _DriverStorage_Put_Handler(srv interface{}, ctx context.Context, dec func(i
 		Server:     srv,
 		FullMethod: DriverStorage_Put_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(DriverStorageServer).Put(ctx, req.(*PutReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DriverStorage_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DriverStorage_Delete_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(DeleteReq)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -209,7 +209,7 @@ func _DriverStorage_Delete_Handler(srv interface{}, ctx context.Context, dec fun
 		Server:     srv,
 		FullMethod: DriverStorage_Delete_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(DriverStorageServer).Delete(ctx, req.(*DeleteReq))
 	}
 	return interceptor(ctx, in, info, handler)

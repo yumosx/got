@@ -5,12 +5,12 @@ import (
 	"reflect"
 )
 
-func CopyProperties(fromValue interface{}, toValue interface{}) error {
+func CopyProperties(fromValue any, toValue any) error {
 	err := copier.CopyWithOption(toValue, fromValue, copier.Option{IgnoreEmpty: true})
 	return err
 }
 
-func CopyProp(fromValue interface{}, toValue interface{}, ignoreEmpty bool) error {
+func CopyProp(fromValue any, toValue any, ignoreEmpty bool) error {
 	//dstType, dstValue := reflect.TypeOf(dst), reflect.ValueOf(dst)
 	//srcType, srcValue := reflect.TypeOf(src), reflect.ValueOf(src)
 	//// dst必须结构体指针类型
@@ -21,7 +21,7 @@ func CopyProp(fromValue interface{}, toValue interface{}, ignoreEmpty bool) erro
 	return err
 }
 
-func IsMap(data interface{}) bool {
+func IsMap(data any) bool {
 	t := reflect.TypeOf(data)
 	return t.Kind() == reflect.Map
 }

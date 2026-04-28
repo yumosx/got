@@ -106,7 +106,7 @@ func RegisterRpcProductServer(s grpc.ServiceRegistrar, srv RpcProductServer) {
 	s.RegisterService(&RpcProduct_ServiceDesc, srv)
 }
 
-func _RpcProduct_QueryProductList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcProduct_QueryProductList_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(QueryProductListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -118,13 +118,13 @@ func _RpcProduct_QueryProductList_Handler(srv interface{}, ctx context.Context, 
 		Server:     srv,
 		FullMethod: RpcProduct_QueryProductList_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcProductServer).QueryProductList(ctx, req.(*QueryProductListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcProduct_QueryProductById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcProduct_QueryProductById_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(QueryProductByIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -136,7 +136,7 @@ func _RpcProduct_QueryProductById_Handler(srv interface{}, ctx context.Context, 
 		Server:     srv,
 		FullMethod: RpcProduct_QueryProductById_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcProductServer).QueryProductById(ctx, req.(*QueryProductByIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)

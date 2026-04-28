@@ -20,7 +20,7 @@ func Init() {
 }
 
 // 200 成功 其它 失败
-func PostJSON(url string, data interface{}) error {
+func PostJSON(url string, data any) error {
 	bytesData, _ := json.Marshal(data)
 	//global.Logbiz.Infof("====>发送url[%s] 数据[%v] ", url, string(bytesData))
 	resp, err := httpClient.Post(url, "application/json", bytes.NewReader(bytesData))
@@ -32,7 +32,7 @@ func PostJSON(url string, data interface{}) error {
 	body, _ := ioutil.ReadAll(resp.Body)
 	//jsonStr := string(body)
 	//global.Logbiz.Infof("<=====发送完成: [%v] ", jsonStr)
-	var datamap map[string]interface{}
+	var datamap map[string]any
 	err = json.Unmarshal(body, &datamap)
 	if err == nil {
 		return err

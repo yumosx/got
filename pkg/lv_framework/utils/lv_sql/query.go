@@ -27,7 +27,7 @@ const (
  *	isnull
  *  order 排序		e.g. order[key]=desc     order[key]=asc
  */
-func ResolveSearchQuery(driver string, q interface{}, condition Condition) {
+func ResolveSearchQuery(driver string, q any, condition Condition) {
 	qType := reflect.TypeOf(q)
 	qValue := reflect.ValueOf(q)
 	var tag string
@@ -63,39 +63,39 @@ func ResolveSearchQuery(driver string, q interface{}, condition Condition) {
 			))
 			ResolveSearchQuery(driver, qValue.Field(i).Interface(), join)
 		case "exact", "iexact":
-			condition.SetWhere(fmt.Sprintf("`%s`.`%s` = ?", t.Table, t.Column), []interface{}{qValue.Field(i).Interface()})
+			condition.SetWhere(fmt.Sprintf("`%s`.`%s` = ?", t.Table, t.Column), []any{qValue.Field(i).Interface()})
 		case "contains", "icontains":
 			//fixme mysql不支持ilike
 			if driver == Postgres && t.Type == "icontains" {
-				condition.SetWhere(fmt.Sprintf("`%s`.`%s` ilike ?", t.Table, t.Column), []interface{}{"%" + qValue.Field(i).String() + "%"})
+				condition.SetWhere(fmt.Sprintf("`%s`.`%s` ilike ?", t.Table, t.Column), []any{"%" + qValue.Field(i).String() + "%"})
 			} else {
-				condition.SetWhere(fmt.Sprintf("`%s`.`%s` like ?", t.Table, t.Column), []interface{}{"%" + qValue.Field(i).String() + "%"})
+				condition.SetWhere(fmt.Sprintf("`%s`.`%s` like ?", t.Table, t.Column), []any{"%" + qValue.Field(i).String() + "%"})
 			}
 		case "gt":
-			condition.SetWhere(fmt.Sprintf("`%s`.`%s` > ?", t.Table, t.Column), []interface{}{qValue.Field(i).Interface()})
+			condition.SetWhere(fmt.Sprintf("`%s`.`%s` > ?", t.Table, t.Column), []any{qValue.Field(i).Interface()})
 		case "gte":
-			condition.SetWhere(fmt.Sprintf("`%s`.`%s` >= ?", t.Table, t.Column), []interface{}{qValue.Field(i).Interface()})
+			condition.SetWhere(fmt.Sprintf("`%s`.`%s` >= ?", t.Table, t.Column), []any{qValue.Field(i).Interface()})
 		case "lt":
-			condition.SetWhere(fmt.Sprintf("`%s`.`%s` < ?", t.Table, t.Column), []interface{}{qValue.Field(i).Interface()})
+			condition.SetWhere(fmt.Sprintf("`%s`.`%s` < ?", t.Table, t.Column), []any{qValue.Field(i).Interface()})
 		case "lte":
-			condition.SetWhere(fmt.Sprintf("`%s`.`%s` <= ?", t.Table, t.Column), []interface{}{qValue.Field(i).Interface()})
+			condition.SetWhere(fmt.Sprintf("`%s`.`%s` <= ?", t.Table, t.Column), []any{qValue.Field(i).Interface()})
 		case "startswith", "istartswith":
 			if driver == Postgres && t.Type == "istartswith" {
-				condition.SetWhere(fmt.Sprintf("`%s`.`%s` ilike ?", t.Table, t.Column), []interface{}{qValue.Field(i).String() + "%"})
+				condition.SetWhere(fmt.Sprintf("`%s`.`%s` ilike ?", t.Table, t.Column), []any{qValue.Field(i).String() + "%"})
 			} else {
-				condition.SetWhere(fmt.Sprintf("`%s`.`%s` like ?", t.Table, t.Column), []interface{}{qValue.Field(i).String() + "%"})
+				condition.SetWhere(fmt.Sprintf("`%s`.`%s` like ?", t.Table, t.Column), []any{qValue.Field(i).String() + "%"})
 			}
 		case "endswith", "iendswith":
 			if driver == Postgres && t.Type == "iendswith" {
-				condition.SetWhere(fmt.Sprintf("`%s`.`%s` ilike ?", t.Table, t.Column), []interface{}{"%" + qValue.Field(i).String()})
+				condition.SetWhere(fmt.Sprintf("`%s`.`%s` ilike ?", t.Table, t.Column), []any{"%" + qValue.Field(i).String()})
 			} else {
-				condition.SetWhere(fmt.Sprintf("`%s`.`%s` like ?", t.Table, t.Column), []interface{}{"%" + qValue.Field(i).String()})
+				condition.SetWhere(fmt.Sprintf("`%s`.`%s` like ?", t.Table, t.Column), []any{"%" + qValue.Field(i).String()})
 			}
 		case "in":
-			condition.SetWhere(fmt.Sprintf("`%s`.`%s` in (?)", t.Table, t.Column), []interface{}{qValue.Field(i).Interface()})
+			condition.SetWhere(fmt.Sprintf("`%s`.`%s` in (?)", t.Table, t.Column), []any{qValue.Field(i).Interface()})
 		case "isnull":
 			if !(qValue.Field(i).IsZero() && qValue.Field(i).IsNil()) {
-				condition.SetWhere(fmt.Sprintf("`%s`.`%s` isnull", t.Table, t.Column), make([]interface{}, 0))
+				condition.SetWhere(fmt.Sprintf("`%s`.`%s` isnull", t.Table, t.Column), make([]any, 0))
 			}
 		case "order":
 			switch strings.ToLower(qValue.Field(i).String()) {

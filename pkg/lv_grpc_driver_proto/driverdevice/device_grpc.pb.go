@@ -196,7 +196,7 @@ func RegisterRpcDeviceServer(s grpc.ServiceRegistrar, srv RpcDeviceServer) {
 	s.RegisterService(&RpcDevice_ServiceDesc, srv)
 }
 
-func _RpcDevice_ConnectIotPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcDevice_ConnectIotPlatform_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(ConnectIotPlatformRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -208,13 +208,13 @@ func _RpcDevice_ConnectIotPlatform_Handler(srv interface{}, ctx context.Context,
 		Server:     srv,
 		FullMethod: RpcDevice_ConnectIotPlatform_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcDeviceServer).ConnectIotPlatform(ctx, req.(*ConnectIotPlatformRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcDevice_DisconnectIotPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcDevice_DisconnectIotPlatform_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(DisconnectIotPlatformRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -226,13 +226,13 @@ func _RpcDevice_DisconnectIotPlatform_Handler(srv interface{}, ctx context.Conte
 		Server:     srv,
 		FullMethod: RpcDevice_DisconnectIotPlatform_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcDeviceServer).DisconnectIotPlatform(ctx, req.(*DisconnectIotPlatformRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcDevice_GetDeviceConnectStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcDevice_GetDeviceConnectStatus_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(GetDeviceConnectStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -244,13 +244,13 @@ func _RpcDevice_GetDeviceConnectStatus_Handler(srv interface{}, ctx context.Cont
 		Server:     srv,
 		FullMethod: RpcDevice_GetDeviceConnectStatus_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcDeviceServer).GetDeviceConnectStatus(ctx, req.(*GetDeviceConnectStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcDevice_QueryDeviceById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcDevice_QueryDeviceById_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(QueryDeviceByIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -262,13 +262,13 @@ func _RpcDevice_QueryDeviceById_Handler(srv interface{}, ctx context.Context, de
 		Server:     srv,
 		FullMethod: RpcDevice_QueryDeviceById_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcDeviceServer).QueryDeviceById(ctx, req.(*QueryDeviceByIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcDevice_CreateDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcDevice_CreateDevice_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(CreateDeviceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -280,13 +280,13 @@ func _RpcDevice_CreateDevice_Handler(srv interface{}, ctx context.Context, dec f
 		Server:     srv,
 		FullMethod: RpcDevice_CreateDevice_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcDeviceServer).CreateDevice(ctx, req.(*CreateDeviceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcDevice_CreateDeviceAndConnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcDevice_CreateDeviceAndConnect_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(CreateDeviceAndConnectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -298,13 +298,13 @@ func _RpcDevice_CreateDeviceAndConnect_Handler(srv interface{}, ctx context.Cont
 		Server:     srv,
 		FullMethod: RpcDevice_CreateDeviceAndConnect_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcDeviceServer).CreateDeviceAndConnect(ctx, req.(*CreateDeviceAndConnectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RpcDevice_DeleteDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RpcDevice_DeleteDevice_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(DeleteDeviceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -316,7 +316,7 @@ func _RpcDevice_DeleteDevice_Handler(srv interface{}, ctx context.Context, dec f
 		Server:     srv,
 		FullMethod: RpcDevice_DeleteDevice_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(RpcDeviceServer).DeleteDevice(ctx, req.(*DeleteDeviceRequest))
 	}
 	return interceptor(ctx, in, info, handler)

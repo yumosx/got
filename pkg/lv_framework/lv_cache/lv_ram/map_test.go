@@ -23,7 +23,7 @@ func TestNewRamCacheClient(t *testing.T) {
 	var (
 		hashKey = "hash_test"
 		field   = "boo"
-		values  = []interface{}{"boo", "far", "boo1", "far1"}
+		values  = []any{"boo", "far", "boo1", "far1"}
 	)
 	fmt.Println("hash get " + hashKey)
 	fmt.Println(c.HGet(hashKey, field))

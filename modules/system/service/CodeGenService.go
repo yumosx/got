@@ -105,7 +105,7 @@ func (e *CodeGenService) GenCode(tab *vo.GenTableVO, overwrite bool) {
 }
 
 // 读取模板
-func (svc CodeGenService) LoadTemplate(templateName string, data interface{}) (string, error) {
+func (svc CodeGenService) LoadTemplate(templateName string, data any) (string, error) {
 	cur, err := os.Getwd()
 	if err != nil {
 		return "", err

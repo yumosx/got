@@ -34,7 +34,7 @@ func LoggerToFile() gin.HandlerFunc {
 		// 请求IP
 		clientIP := c.ClientIP()
 		// 日志格式
-		logData := map[string]interface{}{
+		logData := map[string]any{
 			"statusCode":  statusCode,
 			"latencyTime": latencyTime,
 			"clientIP":    clientIP,

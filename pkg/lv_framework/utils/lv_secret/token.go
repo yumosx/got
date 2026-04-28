@@ -103,7 +103,7 @@ func VerifyAuthToken(token string) (*Token, error) {
 	}
 	var myClaims MyClaims
 
-	parseAuth, err := jwt.ParseWithClaims(token, &myClaims, func(*jwt.Token) (interface{}, error) {
+	parseAuth, err := jwt.ParseWithClaims(token, &myClaims, func(*jwt.Token) (any, error) {
 		return mySignKeyBytes, nil
 	})
 

@@ -72,7 +72,7 @@ func Err(c *gin.Context, msg string) {
 }
 
 // 通常成功数据处理
-func Success(c *gin.Context, data interface{}, msg string) {
+func Success(c *gin.Context, data any, msg string) {
 	//如果传进来的是指针就对其进行翻译，不是指针保持原来的内容不变
 	//if data!=nil{
 	//	if reflect.TypeOf(data).Kind() == reflect.Ptr {
@@ -84,7 +84,7 @@ func Success(c *gin.Context, data interface{}, msg string) {
 }
 
 // 通常成功数据处理
-func SuccessData(c *gin.Context, data interface{}) {
+func SuccessData(c *gin.Context, data any) {
 	//如果传进来的是指针就对其进行翻译，不是指针保持原来的内容不变
 	//if data!=nil{
 	//	if reflect.TypeOf(data).Kind() == reflect.Ptr {

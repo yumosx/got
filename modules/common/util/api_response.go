@@ -69,7 +69,7 @@ func (resp *ApiResp) SetCode(code int) *ApiResp {
 }
 
 // 设置消息体的数据
-func (resp *ApiResp) SetData(data interface{}) *ApiResp {
+func (resp *ApiResp) SetData(data any) *ApiResp {
 	resp.r.Data = data
 	return resp
 }
@@ -80,7 +80,7 @@ func (resp *ApiResp) SetBtype(btype lv_dto.BunissType) *ApiResp {
 	return resp
 }
 
-func (resp *ApiResp) Log(title string, inParam interface{}) *ApiResp {
+func (resp *ApiResp) Log(title string, inParam any) *ApiResp {
 	fmt.Println("ApiResp.Log 已经废弃，" + title)
 	return resp
 }

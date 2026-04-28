@@ -15,7 +15,7 @@ import (
 var (
 	sheet        *xlsx.Sheet
 	cell         *xlsx.Cell
-	downloadData []interface{}
+	downloadData []any
 	err          error
 )
 

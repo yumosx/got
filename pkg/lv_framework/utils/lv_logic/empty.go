@@ -4,14 +4,14 @@ import (
 	"reflect"
 )
 
-func IsNotEmpty(value interface{}) bool {
+func IsNotEmpty(value any) bool {
 	return !IsEmpty(value)
 }
 
 // IsEmpty checks whether given <value> empty.
 // It returns true if <value> is in: 0, nil, false, "", len(slice/map/chan) == 0.
 // Or else it returns true.
-func IsEmpty(value interface{}) bool {
+func IsEmpty(value any) bool {
 	if value == nil {
 		return true
 	}
@@ -70,7 +70,7 @@ func IsEmpty(value interface{}) bool {
 
 // IsNil checks whether given <value> is nil.
 // Note that it might use reflect feature which affects performance a little bit.
-func IsNil(value interface{}) bool {
+func IsNil(value any) bool {
 	if value == nil {
 		return true
 	}

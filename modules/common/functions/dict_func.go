@@ -14,7 +14,7 @@ type DictService struct {
 }
 
 // 根据字典类型和字典键值查询字典数据信息
-func DictLabel(dictType string, dictValue interface{}) template.HTML {
+func DictLabel(dictType string, dictValue any) template.HTML {
 	result := ""
 	dictData := &dictDataModel.SysDictData{DictType: dictType, DictValue: lv_conv.String(dictValue)}
 	dictData, err := dictData.FindOne()
@@ -26,7 +26,7 @@ func DictLabel(dictType string, dictValue interface{}) template.HTML {
 }
 
 // 通用的字典单选框控件  dictType 字典类别  value 默认值
-func DictRadio(dictType, name string, value interface{}) template.HTML {
+func DictRadio(dictType, name string, value any) template.HTML {
 	result, err := SelectDictDataByType(dictType)
 	if err != nil {
 		return ""

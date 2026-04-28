@@ -32,7 +32,7 @@ func (svc TableService) SelectRecordById(id int64) (*vo.GenTableVO, error) {
 		return nil, err
 	}
 	if vo.Options != "" {
-		p := make(map[string]interface{}, 2)
+		p := make(map[string]any, 2)
 		if e := json.Unmarshal([]byte(vo.Options), &p); e == nil {
 			treeCode := p["treeCode"].(string)
 			treeParentCode := p["treeParentCode"].(string)
@@ -548,7 +548,7 @@ func (svc TableService) HtmlTypeTpl() string {
 }
 
 // 读取模板
-func (svc TableService) LoadTemplate(templateName string, data interface{}) (string, error) {
+func (svc TableService) LoadTemplate(templateName string, data any) (string, error) {
 	cur, err := os.Getwd()
 	if err != nil {
 		return "", err

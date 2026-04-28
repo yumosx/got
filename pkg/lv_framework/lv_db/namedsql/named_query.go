@@ -115,7 +115,7 @@ func Count(db *gorm.DB, countSql string, params any) (int64, error) {
  * gorm中参数为map指针时，无法正常传参数！！
  * 处理方式：把map的指针转为值类型。
  */
-func checkAndExtractMap(value interface{}) (map[string]any, bool) {
+func checkAndExtractMap(value any) (map[string]any, bool) {
 	// 判断是否是指针类型
 	if ptr, ok := value.(*map[string]any); ok {
 		// 指针指向Map类型
@@ -159,8 +159,8 @@ func ListMapAny(db *gorm.DB, sqlQuery string, params any, isCamel bool) (*[]map[
 	// 遍历每一行
 	for rows.Next() {
 		rowData := make(map[string]any)
-		values := make([]interface{}, len(cols))
-		valuePtrs := make([]interface{}, len(cols))
+		values := make([]any, len(cols))
+		valuePtrs := make([]any, len(cols))
 		// 为每列创建一个 interface{} 类型的指针
 		for i := range values {
 			valuePtrs[i] = &values[i]
@@ -190,7 +190,7 @@ func ListMapAny(db *gorm.DB, sqlQuery string, params any, isCamel bool) (*[]map[
 }
 
 // CastValueType 根据列类型转换值类型
-func CastValueType(colType string, rowData map[string]any, key string, val interface{}) {
+func CastValueType(colType string, rowData map[string]any, key string, val any) {
 	switch colType {
 	case "VARCHAR", "TEXT":
 		rowData[key] = cast.ToString(val)
@@ -243,7 +243,7 @@ func ListMapStr(db *gorm.DB, sqlQuery string, params any, isCamel bool) (*[]map[
 	}
 	result := make([]map[string]string, 0)
 	values := make([]sql.RawBytes, len(cols))
-	scanArgs := make([]interface{}, len(values))
+	scanArgs := make([]any, len(values))
 	for i := range values {
 		scanArgs[i] = &values[i]
 	}
@@ -295,7 +295,7 @@ func ListArrStr(db *gorm.DB, sqlQuery string, params any) (*[][]string, error) {
 		return nil, err
 	}
 	values := make([]sql.RawBytes, len(cols))
-	scanArgs := make([]interface{}, len(values))
+	scanArgs := make([]any, len(values))
 	for i := range values {
 		scanArgs[i] = &values[i]
 	}
@@ -345,7 +345,7 @@ func ListOneColStr(db *gorm.DB, sqlQuery string, params any) ([]string, error) {
 		return nil, err
 	}
 	values := make([]sql.RawBytes, len(cols))
-	scanArgs := make([]interface{}, len(values))
+	scanArgs := make([]any, len(values))
 	for i := range values {
 		scanArgs[i] = &values[i]
 	}

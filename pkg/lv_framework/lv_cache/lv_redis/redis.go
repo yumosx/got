@@ -67,7 +67,7 @@ func (rcc *RedisClient) Exists(key string) (int64, error) {
 	return rcc.c.Exists(context.Background(), key).Result()
 }
 
-func (rcc *RedisClient) Set(key string, value interface{}, expiration time.Duration) error {
+func (rcc *RedisClient) Set(key string, value any, expiration time.Duration) error {
 	rcc.c.Set(context.Background(), key, value, expiration)
 	return nil
 }
@@ -85,7 +85,7 @@ func (rcc *RedisClient) Del(keys ...string) error {
 	return err
 }
 
-func (rcc *RedisClient) HSet(key string, values ...interface{}) error {
+func (rcc *RedisClient) HSet(key string, values ...any) error {
 	err := rcc.c.HSet(context.Background(), key, values...).Err()
 	return err
 }

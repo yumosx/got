@@ -38,8 +38,8 @@ func (d ConfigDao) SelectPageList(param *common_vo.SelectConfigPageReq) (*[]map[
 	return result, total, err
 }
 
-func (d ConfigDao) GetSql(param *common_vo.SelectConfigPageReq) (map[string]interface{}, string) {
-	sqlParams := make(map[string]interface{})
+func (d ConfigDao) GetSql(param *common_vo.SelectConfigPageReq) (map[string]any, string) {
+	sqlParams := make(map[string]any)
 	sql := `
            select * from sys_config u where 1=1
           `

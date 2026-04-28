@@ -4,7 +4,7 @@ type Resp struct {
 	// 代码
 	Code int `json:"code" example:"200"`
 	// 数据集
-	Data interface{} `json:"data"`
+	Data any `json:"data"`
 	// 消息
 	Msg string `json:"msg"`
 }
@@ -14,7 +14,7 @@ func (res *Resp) ReturnOK() *Resp {
 	res.Msg = "Success!"
 	return res
 }
-func (res *Resp) RetData(data *interface{}) *Resp {
+func (res *Resp) RetData(data *any) *Resp {
 	res.Code = 200
 	res.Data = data
 	return res
@@ -30,7 +30,7 @@ func (res *Resp) Fail(msg string) *Resp {
 	return res
 }
 
-func (res *Resp) Ok(data *interface{}) *Resp {
+func (res *Resp) Ok(data *any) *Resp {
 	res.Code = 200
 	res.Data = data
 	res.Msg = "success!"

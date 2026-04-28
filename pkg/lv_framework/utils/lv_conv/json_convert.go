@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/cast"
 )
 
-func ToJsonStr(e interface{}) (string, error) {
+func ToJsonStr(e any) (string, error) {
 	//格式化
 	//b, err := json.MarshalIndent(user, "", "  ")
 	b, err := json.Marshal(e)

@@ -3,8 +3,8 @@ package lv_sql
 import "strings"
 
 type Condition interface {
-	SetWhere(k string, v []interface{})
-	SetOr(k string, v []interface{})
+	SetWhere(k string, v []any)
+	SetOr(k string, v []any)
 	SetOrder(k string)
 	SetJoinOn(t, on string) Condition
 }
@@ -15,9 +15,9 @@ type GormCondition struct {
 }
 
 type GormPublic struct {
-	Where map[string][]interface{}
+	Where map[string][]any
 	Order []string
-	Or    map[string][]interface{}
+	Or    map[string][]any
 }
 
 type GormJoin struct {
@@ -30,16 +30,16 @@ func (e *GormJoin) SetJoinOn(t, on string) Condition {
 	return nil
 }
 
-func (e *GormPublic) SetWhere(k string, v []interface{}) {
+func (e *GormPublic) SetWhere(k string, v []any) {
 	if e.Where == nil {
-		e.Where = make(map[string][]interface{})
+		e.Where = make(map[string][]any)
 	}
 	e.Where[k] = v
 }
 
-func (e *GormPublic) SetOr(k string, v []interface{}) {
+func (e *GormPublic) SetOr(k string, v []any) {
 	if e.Or == nil {
-		e.Or = make(map[string][]interface{})
+		e.Or = make(map[string][]any)
 	}
 	e.Or[k] = v
 }

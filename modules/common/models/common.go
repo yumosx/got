@@ -14,7 +14,7 @@ func (c SliceString) Value() (driver.Value, error) {
 	return GormValueWrap(c)
 }
 
-func (c *SliceString) Scan(value interface{}) error {
+func (c *SliceString) Scan(value any) error {
 	return GormScanWrap(value, c)
 }
 
@@ -24,27 +24,27 @@ func (c MapStringString) Value() (driver.Value, error) {
 	return GormValueWrap(c)
 }
 
-func (c *MapStringString) Scan(value interface{}) error {
+func (c *MapStringString) Scan(value any) error {
 	return GormScanWrap(value, c)
 }
 
-type MapStringInterface map[string]interface{}
+type MapStringInterface map[string]any
 
 func (c MapStringInterface) Value() (driver.Value, error) {
 	return GormValueWrap(c)
 }
 
-func (c *MapStringInterface) Scan(value interface{}) error {
+func (c *MapStringInterface) Scan(value any) error {
 	return GormScanWrap(value, c)
 }
 
-type MapStringInterfaceUseNumber map[string]interface{}
+type MapStringInterfaceUseNumber map[string]any
 
 func (c MapStringInterfaceUseNumber) Value() (driver.Value, error) {
 	return GormValueWrap(c)
 }
 
-func (c *MapStringInterfaceUseNumber) Scan(value interface{}) error {
+func (c *MapStringInterfaceUseNumber) Scan(value any) error {
 	return GormScanWrapUseNumber(value, c)
 }
 
@@ -54,12 +54,12 @@ func (c MapStringSliceString) Value() (driver.Value, error) {
 	return GormValueWrap(c)
 }
 
-func (c *MapStringSliceString) Scan(value interface{}) error {
+func (c *MapStringSliceString) Scan(value any) error {
 	return GormScanWrap(value, c)
 }
 
 // 全局处理入库数据
-func GormValueWrap(c interface{}) (driver.Value, error) {
+func GormValueWrap(c any) (driver.Value, error) {
 	str, err := json.Marshal(c)
 	if err != nil {
 		return "", err
@@ -70,7 +70,7 @@ func GormValueWrap(c interface{}) (driver.Value, error) {
 	return string(str), nil
 }
 
-func GormScanWrap(value interface{}, ojb interface{}) error {
+func GormScanWrap(value any, ojb any) error {
 
 	switch v := value.(type) {
 	case string:
@@ -97,7 +97,7 @@ func GormScanWrap(value interface{}, ojb interface{}) error {
 	return nil
 }
 
-func GormScanWrapUseNumber(value interface{}, ojb interface{}) error {
+func GormScanWrapUseNumber(value any, ojb any) error {
 	str, ok := value.(string)
 	if !ok {
 		return fmt.Errorf("field is not string value: %v, type: %v", value, reflect.TypeOf(value))
